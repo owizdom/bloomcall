@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="586" viewBox="0 0 1200 586" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+<rect width="1200" height="586" fill="#ffffff"/>
+<text x="64" y="92" font-size="40" font-weight="700" fill="#0b0b0b" letter-spacing="-0.5">Darkbloom models solved 67 of 71 agent tasks</text>
+<text x="64" y="136" font-size="22" fill="#52514e">Six models, six multi-step coding tasks, two runs each, judged on disk. 60 of 60 single tool calls parsed.</text>
+<text x="300" y="214" font-size="22" fill="#0b0b0b" text-anchor="end">GLM 5.3 Flash</text>
+<path d="M320,196 H1016 Q1020,196 1020,200 V214 Q1020,218 1016,218 H320 Z" fill="#cde2fb"/>
+<path d="M320,196 H1016.0 Q1020.0,196 1020.0,200 V214 Q1020.0,218 1016.0,218 H320 Z" fill="#2a78d6"/>
+<text x="1040" y="214" font-size="22" font-weight="600" fill="#0b0b0b">12<tspan fill="#52514e" font-weight="400">/12</tspan></text>
+<text x="300" y="276" font-size="22" fill="#0b0b0b" text-anchor="end">Gemma 4 26B</text>
+<path d="M320,258 H1016 Q1020,258 1020,262 V276 Q1020,280 1016,280 H320 Z" fill="#cde2fb"/>
+<path d="M320,258 H1016.0 Q1020.0,258 1020.0,262 V276 Q1020.0,280 1016.0,280 H320 Z" fill="#2a78d6"/>
+<text x="1040" y="276" font-size="22" font-weight="600" fill="#0b0b0b">12<tspan fill="#52514e" font-weight="400">/12</tspan></text>
+<text x="300" y="338" font-size="22" fill="#0b0b0b" text-anchor="end">Qwen3.8 27B</text>
+<path d="M320,320 H1016 Q1020,320 1020,324 V338 Q1020,342 1016,342 H320 Z" fill="#cde2fb"/>
+<path d="M320,320 H1016.0 Q1020.0,320 1020.0,324 V338 Q1020.0,342 1016.0,342 H320 Z" fill="#2a78d6"/>
+<text x="1040" y="338" font-size="22" font-weight="600" fill="#0b0b0b">12<tspan fill="#52514e" font-weight="400">/12</tspan></text>
+<text x="300" y="400" font-size="22" fill="#0b0b0b" text-anchor="end">Qwen3.5 35B-A3B</text>
+<path d="M320,382 H1016 Q1020,382 1020,386 V400 Q1020,404 1016,404 H320 Z" fill="#cde2fb"/>
+<path d="M320,382 H957.6666666666666 Q961.6666666666666,382 961.6666666666666,386 V400 Q961.6666666666666,404 957.6666666666666,404 H320 Z" fill="#2a78d6"/>
+<text x="1040" y="400" font-size="22" font-weight="600" fill="#0b0b0b">11<tspan fill="#52514e" font-weight="400">/12</tspan></text>
+<text x="300" y="462" font-size="22" fill="#0b0b0b" text-anchor="end">Qwen3.6 35B-A3B</text>
+<path d="M320,444 H1016 Q1020,444 1020,448 V462 Q1020,466 1016,466 H320 Z" fill="#cde2fb"/>
+<path d="M320,444 H957.6666666666666 Q961.6666666666666,444 961.6666666666666,448 V462 Q961.6666666666666,466 957.6666666666666,466 H320 Z" fill="#2a78d6"/>
+<text x="1040" y="462" font-size="22" font-weight="600" fill="#0b0b0b">11<tspan fill="#52514e" font-weight="400">/12</tspan></text>
+<text x="300" y="524" font-size="22" fill="#0b0b0b" text-anchor="end">gpt-oss 20B</text>
+<path d="M320,506 H1016 Q1020,506 1020,510 V524 Q1020,528 1016,528 H320 Z" fill="#cde2fb"/>
+<path d="M320,506 H888.7272727272727 Q892.7272727272727,506 892.7272727272727,510 V524 Q892.7272727272727,528 888.7272727272727,528 H320 Z" fill="#2a78d6"/>
+<text x="1040" y="524" font-size="22" font-weight="600" fill="#0b0b0b">9<tspan fill="#52514e" font-weight="400">/11</tspan></text>
+</svg>
