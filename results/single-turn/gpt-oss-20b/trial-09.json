@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "gpt-oss-20b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are warden, a security agent running locally in hearth. You audit code and systems for vulnerabilities, secrets and misconfiguration, and you report evidence with file and line. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "Check which processes are listening on TCP ports on this machine."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-b7999e0e-f9a6-432d-803c-6ca8e1159847",
+  "object": "chat.completion",
+  "created": 1794129900,
+  "model": "gpt-oss-20b",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "",
+     "reasoning": "We need to run a shell command to list listening TCP ports. Use netstat or ss. Let's use ss -tlnp.",
+     "reasoning_content": "We need to run a shell command to list listening TCP ports. Use netstat or ss. Let's use ss -tlnp.",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "We need to run a shell command to list listening TCP ports. Use netstat or ss. Let's use ss -tlnp.",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"command\":\"ss -tlnp\",\"timeout_ms\":10000}",
+        "name": "shell"
+       },
+       "id": "call_1E4D176385AE4A628BCBBCFC",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 403,
+   "completion_tokens": 60,
+   "total_tokens": 463,
+   "completion_tokens_details": {
+    "reasoning_tokens": 27
+   }
+  },
+  "se_signature": "MEQCIA9FMBl/njDp59zNMGlzu7A4qp74hi3G1MAx8ILAzrysAiBDYkfmcsfb9fd9ddcNa7IEhirMe78LoNQ0xFL1NTrCrQ==",
+  "response_hash": "ecf0a204ef2c6b481ca494b62f725faa58bd78ddc912e0a8d52ccc5fb17e1b8c"
+ },
+ "row": {
+  "trial": 9,
+  "agent": "warden",
+  "expect": "shell",
+  "verdict": "pass",
+  "called": [
+   "shell"
+  ],
+  "expected_tool_called": true,
+  "seconds": 1.8,
+  "finish": "tool_calls",
+  "prompt_tokens": 403,
+  "prompt_tps": 0,
+  "gen_tokens": 60,
+  "gen_tps": 32.77,
+  "reasoning_chars": 98,
+  "error": null
+ }
+}

@@ -1,0 +1,292 @@
+{
+ "summary": {
+  "model": "qwen3.5-35b-a3b",
+  "episodes": 12,
+  "valid_episodes": 12,
+  "passed": 11,
+  "tool_turns": 44,
+  "text_leaks": 0,
+  "unoffered_or_bad_args": 0,
+  "false_completion_claims": 1,
+  "silent_stops": 0,
+  "errors": 0
+ },
+ "rows": [
+  {
+   "task": "count_rows",
+   "pass": true,
+   "judge": "'1284'",
+   "turns": 3,
+   "verdicts": {
+    "call": 2,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 14.0,
+   "usage": {
+    "prompt": 41509,
+    "completion": 185
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "count_rows",
+   "pass": true,
+   "judge": "'1284'",
+   "turns": 3,
+   "verdicts": {
+    "call": 2,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 14.2,
+   "usage": {
+    "prompt": 41509,
+    "completion": 178
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "find_secret",
+   "pass": true,
+   "judge": "# Hardcoded Cloud Credential Findings\n\n## Real Credentials Found\n\n| File Path | Line Number | Description |\n|-----------|-------------|-------------|\n| deploy/settings.py | 17 | AWS Access Key ID: `AK",
+   "turns": 4,
+   "verdicts": {
+    "call": 3,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 10.8,
+   "usage": {
+    "prompt": 3769,
+    "completion": 553
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "find_secret",
+   "pass": true,
+   "judge": "# Hardcoded Cloud Credentials Findings\n\n## deploy/settings.py (Line 17)\n```python\nAWS_ACCESS_KEY_ID = \"AKIAQ7HX3MZP4YRN2KDW\"\n```\n\nThis file contains a hardcoded AWS Access Key ID which could be used t",
+   "turns": 6,
+   "verdicts": {
+    "call": 5,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 16.8,
+   "usage": {
+    "prompt": 5455,
+    "completion": 556
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "fix_bug",
+   "pass": true,
+   "judge": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+   "turns": 5,
+   "verdicts": {
+    "call": 4,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 11.8,
+   "usage": {
+    "prompt": 4669,
+    "completion": 413
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "fix_bug",
+   "pass": true,
+   "judge": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+   "turns": 7,
+   "verdicts": {
+    "call": 6,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 17.0,
+   "usage": {
+    "prompt": 6923,
+    "completion": 750
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "fix_sqli",
+   "pass": true,
+   "judge": "",
+   "turns": 4,
+   "verdicts": {
+    "call": 3,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 12.3,
+   "usage": {
+    "prompt": 3427,
+    "completion": 798
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "fix_sqli",
+   "pass": true,
+   "judge": "",
+   "turns": 3,
+   "verdicts": {
+    "call": 2,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 8.6,
+   "usage": {
+    "prompt": 2395,
+    "completion": 511
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "read_port",
+   "pass": true,
+   "judge": "'8443'",
+   "turns": 3,
+   "verdicts": {
+    "call": 2,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 5.3,
+   "usage": {
+    "prompt": 2288,
+    "completion": 124
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "read_port",
+   "pass": true,
+   "judge": "'8443'",
+   "turns": 3,
+   "verdicts": {
+    "call": 2,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 5.4,
+   "usage": {
+    "prompt": 2288,
+    "completion": 127
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "rename",
+   "pass": false,
+   "judge": "get_user still in ['cli.py']",
+   "turns": 8,
+   "verdicts": {
+    "call": 7,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 16.9,
+   "usage": {
+    "prompt": 7238,
+    "completion": 571
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1,
+   "false_completion_claim": true,
+   "silent_stop": false
+  },
+  {
+   "task": "rename",
+   "pass": true,
+   "judge": "",
+   "turns": 7,
+   "verdicts": {
+    "call": 6,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 14.4,
+   "usage": {
+    "prompt": 6533,
+    "completion": 475
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2,
+   "false_completion_claim": false,
+   "silent_stop": false
+  }
+ ]
+}

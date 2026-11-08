@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "qwen3.5-35b-a3b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are smith, a general software agent running locally in hearth. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "Find every TODO comment under src."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-9bc3c96a-4611-4ad9-99ee-0e033e4f456a",
+  "object": "chat.completion",
+  "created": 1794129964,
+  "model": "qwen3.5-35b-a3b",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "\n\n",
+     "reasoning": "The user wants to find every TODO comment under the src directory. I should use the grep function to search for \"TODO\" comments in files under src. The pattern should match TODO comments, and the path should be src.\n\nLet me use the grep function with:\n- pattern: \"TODO\" (to find TODO comments)\n- path: \"src\" (to search under the src directory)\n\nI don't need to specify include since we want all file types.\n",
+     "reasoning_content": "The user wants to find every TODO comment under the src directory. I should use the grep function to search for \"TODO\" comments in files under src. The pattern should match TODO comments, and the path should be src.\n\nLet me use the grep function with:\n- pattern: \"TODO\" (to find TODO comments)\n- path: \"src\" (to search under the src directory)\n\nI don't need to specify include since we want all file types.\n",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "The user wants to find every TODO comment under the src directory. I should use the grep function to search for \"TODO\" comments in files under src. The pattern should match TODO comments, and the path should be src.\n\nLet me use the grep function with:\n- pattern: \"TODO\" (to find TODO comments)\n- path: \"src\" (to search under the src directory)\n\nI don't need to specify include since we want all file types.\n",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"pattern\":\"TODO\",\"path\":\"src\"}",
+        "name": "grep"
+       },
+       "id": "call_761E5BE9D7DC4068AFCA4043",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 637,
+   "completion_tokens": 137,
+   "total_tokens": 774,
+   "completion_tokens_details": {
+    "reasoning_tokens": 98
+   }
+  },
+  "se_signature": "MEQCIAZC8jvGZY2Y2e+VT5Ic5c54gfOkfoFte3wuTWVR3QoeAiBL/ZTGBOV98d0v2/Up/CUNNIHh8xznlOOVgldAJkyglA==",
+  "response_hash": "54e47696320c6778a54227f92e8d8b38ad49304945f89d5657534bf7fbd17698"
+ },
+ "row": {
+  "trial": 5,
+  "agent": "smith",
+  "expect": "grep",
+  "verdict": "pass",
+  "called": [
+   "grep"
+  ],
+  "expected_tool_called": true,
+  "seconds": 3.1,
+  "finish": "tool_calls",
+  "prompt_tokens": 637,
+  "prompt_tps": 0,
+  "gen_tokens": 137,
+  "gen_tps": 44.38,
+  "reasoning_chars": 407,
+  "error": null
+ }
+}

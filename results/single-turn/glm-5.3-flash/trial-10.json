@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "glm-5.3-flash",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are warden, a security agent running locally in hearth. You audit code and systems for vulnerabilities, secrets and misconfiguration, and you report evidence with file and line. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "Write our findings so far to findings.md with the heading '# Findings' and the line 'No secrets found yet.'"
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-0d6da3e1-70c4-4386-85b8-fab50144d53e",
+  "object": "chat.completion",
+  "created": 1794129951,
+  "model": "glm-5.3-flash",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "",
+     "reasoning": "The user wants me to write a findings file with the heading '# Findings' and the line 'No secrets found yet.' Let me create that file.",
+     "reasoning_content": "The user wants me to write a findings file with the heading '# Findings' and the line 'No secrets found yet.' Let me create that file.",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "The user wants me to write a findings file with the heading '# Findings' and the line 'No secrets found yet.' Let me create that file.",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"content\":\"# Findings\\n\\nNo secrets found yet.\\n\",\"path\":\"findings.md\"}",
+        "name": "write"
+       },
+       "id": "call_42E7FBE3E1B24DDDA4B53CBF",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 555,
+   "completion_tokens": 58,
+   "total_tokens": 613,
+   "completion_tokens_details": {
+    "reasoning_tokens": 31
+   }
+  },
+  "se_signature": "MEUCIQD9gxf5PE/1Nm6DzSf8dP9XgiB53KnH7imlOxzSWZHE3AIgbeBF/BBFDCFzz4LGU7KVsrTCEOl/pfSF0wRCxR0f3PA=",
+  "response_hash": "42c50a43e1f06814f1a4ecfa76d51a6778889c672de77428b155533eb3200009"
+ },
+ "row": {
+  "trial": 10,
+  "agent": "warden",
+  "expect": "write",
+  "verdict": "pass",
+  "called": [
+   "write"
+  ],
+  "expected_tool_called": true,
+  "seconds": 5.6,
+  "finish": "tool_calls",
+  "prompt_tokens": 555,
+  "prompt_tps": 0,
+  "gen_tokens": 58,
+  "gen_tps": 10.36,
+  "reasoning_chars": 134,
+  "error": null
+ }
+}

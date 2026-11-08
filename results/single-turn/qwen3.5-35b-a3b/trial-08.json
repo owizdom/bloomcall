@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "qwen3.5-35b-a3b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are warden, a security agent running locally in hearth. You audit code and systems for vulnerabilities, secrets and misconfiguration, and you report evidence with file and line. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "Search this repo for hardcoded AWS access keys (they start with AKIA)."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-6b67f7cb-b3df-460a-8868-c2f8c114199a",
+  "object": "chat.completion",
+  "created": 1794129973,
+  "model": "qwen3.5-35b-a3b",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "\n\n",
+     "reasoning": "The user wants me to search for hardcoded AWS access keys in the repository. AWS access keys typically start with \"AKIA\" (for Access Key IDs). I should use the grep function to search for this pattern across files in the working directory.\n\nI'll use the grep tool to search for \"AKIA\" which is the typical prefix for AWS Access Key IDs.\n",
+     "reasoning_content": "The user wants me to search for hardcoded AWS access keys in the repository. AWS access keys typically start with \"AKIA\" (for Access Key IDs). I should use the grep function to search for this pattern across files in the working directory.\n\nI'll use the grep tool to search for \"AKIA\" which is the typical prefix for AWS Access Key IDs.\n",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "The user wants me to search for hardcoded AWS access keys in the repository. AWS access keys typically start with \"AKIA\" (for Access Key IDs). I should use the grep function to search for this pattern across files in the working directory.\n\nI'll use the grep tool to search for \"AKIA\" which is the typical prefix for AWS Access Key IDs.\n",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"pattern\":\"AKIA\"}",
+        "name": "grep"
+       },
+       "id": "call_2BB41682640047FAB309FEC4",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 667,
+   "completion_tokens": 104,
+   "total_tokens": 771,
+   "completion_tokens_details": {
+    "reasoning_tokens": 75
+   }
+  },
+  "se_signature": "MEUCIQCJRZzfxV9GO1FJl27kTacy+3g1rBu+9hc1DA53soWBOwIgH3JmJH1Tt1S/wI07L0vImuC/5gofgbJcTH/HQEQOnRQ=",
+  "response_hash": "2a591b563223d162e1284c88e61d7a2ad8b086a77638ed6cc38a833e3fc15f4a"
+ },
+ "row": {
+  "trial": 8,
+  "agent": "warden",
+  "expect": "grep",
+  "verdict": "pass",
+  "called": [
+   "grep"
+  ],
+  "expected_tool_called": true,
+  "seconds": 2.2,
+  "finish": "tool_calls",
+  "prompt_tokens": 667,
+  "prompt_tps": 0,
+  "gen_tokens": 104,
+  "gen_tps": 46.25,
+  "reasoning_chars": 337,
+  "error": null
+ }
+}

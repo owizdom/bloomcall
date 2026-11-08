@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "qwen3.6-35b-a3b-vl-mtp-mxfp8",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are smith, a general software agent running locally in hearth. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "Run the test suite with npm test."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-f741d26d-eaaf-456d-9e51-8379180443ad",
+  "object": "chat.completion",
+  "created": 1794129869,
+  "model": "qwen3.6-35b-a3b-vl-mtp-mxfp8",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "\n\n",
+     "reasoning": "The user wants me to run the test suite using `npm test`. I'll call the shell tool with the command \"npm test\".\n",
+     "reasoning_content": "The user wants me to run the test suite using `npm test`. I'll call the shell tool with the command \"npm test\".\n",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "The user wants me to run the test suite using `npm test`. I'll call the shell tool with the command \"npm test\".\n",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"command\":\"npm test\"}",
+        "name": "shell"
+       },
+       "id": "call_33BBFD1324D1496B9E6647DA",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 638,
+   "completion_tokens": 57,
+   "total_tokens": 695,
+   "completion_tokens_details": {
+    "reasoning_tokens": 28
+   }
+  },
+  "se_signature": "MEUCIBAMG3Ri8ISAm1R26IV6ax192VPOOaNCnhQvcbWkTsNHAiEA4b14JdhwMj53Odtxs4xuYPnC43CSZkyF2rs4VxJPZog=",
+  "response_hash": "5bc5891d4280e162691558feadafff70533501bacea21e4e334e5f4b0aa7474b"
+ },
+ "row": {
+  "trial": 4,
+  "agent": "smith",
+  "expect": "shell",
+  "verdict": "pass",
+  "called": [
+   "shell"
+  ],
+  "expected_tool_called": true,
+  "seconds": 1.9,
+  "finish": "tool_calls",
+  "prompt_tokens": 638,
+  "prompt_tps": 0,
+  "gen_tokens": 57,
+  "gen_tps": 29.36,
+  "reasoning_chars": 112,
+  "error": null
+ }
+}

@@ -1,0 +1,195 @@
+{
+ "summary": {
+  "model": "gpt-oss-20b",
+  "model_path": "remote:https://api.darkbloom.dev/v1",
+  "passes": 10,
+  "trials": 10,
+  "gate": "PASS",
+  "expected_tool_called": 9,
+  "verdicts": {
+   "pass": 10
+  }
+ },
+ "rows": [
+  {
+   "trial": 1,
+   "agent": "smith",
+   "expect": "read",
+   "verdict": "pass",
+   "called": [
+    "read"
+   ],
+   "expected_tool_called": true,
+   "seconds": 1.9,
+   "finish": "tool_calls",
+   "prompt_tokens": 376,
+   "prompt_tps": 0,
+   "gen_tokens": 34,
+   "gen_tps": 17.69,
+   "reasoning_chars": 36,
+   "error": null
+  },
+  {
+   "trial": 2,
+   "agent": "smith",
+   "expect": "write",
+   "verdict": "pass",
+   "called": [
+    "write"
+   ],
+   "expected_tool_called": true,
+   "seconds": 2.0,
+   "finish": "tool_calls",
+   "prompt_tokens": 377,
+   "prompt_tps": 0,
+   "gen_tokens": 53,
+   "gen_tps": 26.03,
+   "reasoning_chars": 87,
+   "error": null
+  },
+  {
+   "trial": 3,
+   "agent": "smith",
+   "expect": "edit",
+   "verdict": "pass",
+   "called": [
+    "read"
+   ],
+   "expected_tool_called": false,
+   "seconds": 2.4,
+   "finish": "tool_calls",
+   "prompt_tokens": 392,
+   "prompt_tps": 0,
+   "gen_tokens": 37,
+   "gen_tps": 15.67,
+   "reasoning_chars": 43,
+   "error": null
+  },
+  {
+   "trial": 4,
+   "agent": "smith",
+   "expect": "shell",
+   "verdict": "pass",
+   "called": [
+    "shell"
+   ],
+   "expected_tool_called": true,
+   "seconds": 1.7,
+   "finish": "tool_calls",
+   "prompt_tokens": 377,
+   "prompt_tps": 0,
+   "gen_tokens": 40,
+   "gen_tps": 22.98,
+   "reasoning_chars": 35,
+   "error": null
+  },
+  {
+   "trial": 5,
+   "agent": "smith",
+   "expect": "grep",
+   "verdict": "pass",
+   "called": [
+    "grep"
+   ],
+   "expected_tool_called": true,
+   "seconds": 1.6,
+   "finish": "tool_calls",
+   "prompt_tokens": 376,
+   "prompt_tps": 0,
+   "gen_tokens": 40,
+   "gen_tps": 24.28,
+   "reasoning_chars": 50,
+   "error": null
+  },
+  {
+   "trial": 6,
+   "agent": "smith",
+   "expect": "glob",
+   "verdict": "pass",
+   "called": [
+    "glob"
+   ],
+   "expected_tool_called": true,
+   "seconds": 1.7,
+   "finish": "tool_calls",
+   "prompt_tokens": 378,
+   "prompt_tps": 0,
+   "gen_tokens": 43,
+   "gen_tps": 25.93,
+   "reasoning_chars": 57,
+   "error": null
+  },
+  {
+   "trial": 7,
+   "agent": "smith",
+   "expect": "shell",
+   "verdict": "pass",
+   "called": [
+    "shell"
+   ],
+   "expected_tool_called": true,
+   "seconds": 2.1,
+   "finish": "tool_calls",
+   "prompt_tokens": 376,
+   "prompt_tps": 0,
+   "gen_tokens": 58,
+   "gen_tps": 27.58,
+   "reasoning_chars": 109,
+   "error": null
+  },
+  {
+   "trial": 8,
+   "agent": "warden",
+   "expect": "grep",
+   "verdict": "pass",
+   "called": [
+    "grep"
+   ],
+   "expected_tool_called": true,
+   "seconds": 1.8,
+   "finish": "tool_calls",
+   "prompt_tokens": 407,
+   "prompt_tps": 0,
+   "gen_tokens": 44,
+   "gen_tps": 23.98,
+   "reasoning_chars": 64,
+   "error": null
+  },
+  {
+   "trial": 9,
+   "agent": "warden",
+   "expect": "shell",
+   "verdict": "pass",
+   "called": [
+    "shell"
+   ],
+   "expected_tool_called": true,
+   "seconds": 1.8,
+   "finish": "tool_calls",
+   "prompt_tokens": 403,
+   "prompt_tps": 0,
+   "gen_tokens": 60,
+   "gen_tps": 32.77,
+   "reasoning_chars": 98,
+   "error": null
+  },
+  {
+   "trial": 10,
+   "agent": "warden",
+   "expect": "write",
+   "verdict": "pass",
+   "called": [
+    "write"
+   ],
+   "expected_tool_called": true,
+   "seconds": 2.0,
+   "finish": "tool_calls",
+   "prompt_tokens": 414,
+   "prompt_tps": 0,
+   "gen_tokens": 69,
+   "gen_tps": 34.43,
+   "reasoning_chars": 143,
+   "error": null
+  }
+ ]
+}

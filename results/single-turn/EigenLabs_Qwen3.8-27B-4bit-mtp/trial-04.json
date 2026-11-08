@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "EigenLabs/Qwen3.8-27B-4bit-mtp",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are smith, a general software agent running locally in hearth. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "Run the test suite with npm test."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-c31cc27c-3afb-4036-ab78-715be6bd80c3",
+  "object": "chat.completion",
+  "created": 1794129828,
+  "model": "EigenLabs/Qwen3.8-27B-4bit-mtp",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "\n\n",
+     "reasoning": "The user wants me to run the test suite with npm test. Let's do that.\n",
+     "reasoning_content": "The user wants me to run the test suite with npm test. Let's do that.\n",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "The user wants me to run the test suite with npm test. Let's do that.\n",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"command\":\"npm test\",\"timeout_ms\":120000}",
+        "name": "shell"
+       },
+       "id": "call_21F0591425EF482193B0A5F0",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 676,
+   "completion_tokens": 66,
+   "total_tokens": 742,
+   "completion_tokens_details": {
+    "reasoning_tokens": 19
+   }
+  },
+  "se_signature": "MEUCIQDyx3bjHkbCgq0DWOXvbDx/OnWD7Y0vQDJks+5dRN1hkgIgE0Z+FebOHajYwpQAsA4WCTIdswq7UdufgfhfldO+TQU=",
+  "response_hash": "9032218df675b19cbfd12bd8e8b9b6ed63b8231cb5cf95c9821df027ddb4f258"
+ },
+ "row": {
+  "trial": 4,
+  "agent": "smith",
+  "expect": "shell",
+  "verdict": "pass",
+  "called": [
+   "shell"
+  ],
+  "expected_tool_called": true,
+  "seconds": 2.2,
+  "finish": "tool_calls",
+  "prompt_tokens": 676,
+  "prompt_tps": 0,
+  "gen_tokens": 66,
+  "gen_tps": 30.03,
+  "reasoning_chars": 70,
+  "error": null
+ }
+}

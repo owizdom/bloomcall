@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "qwen3.6-35b-a3b-vl-mtp-mxfp8",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are smith, a general software agent running locally in hearth. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "Create hello.py that prints hello world."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-4cbae52f-97f1-4d49-accd-02266e58ebcc",
+  "object": "chat.completion",
+  "created": 1794129864,
+  "model": "qwen3.6-35b-a3b-vl-mtp-mxfp8",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "\n\n",
+     "reasoning": "The user wants me to create a Python file named \"hello.py\" that prints \"hello world\". I can use the `write` tool to create this file.\n\nThe content should be:\n```python\nprint(\"hello world\")\n```\n\nI'll write it to \"/tmp/hearth-w0-project/hello.py\".\n",
+     "reasoning_content": "The user wants me to create a Python file named \"hello.py\" that prints \"hello world\". I can use the `write` tool to create this file.\n\nThe content should be:\n```python\nprint(\"hello world\")\n```\n\nI'll write it to \"/tmp/hearth-w0-project/hello.py\".\n",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "The user wants me to create a Python file named \"hello.py\" that prints \"hello world\". I can use the `write` tool to create this file.\n\nThe content should be:\n```python\nprint(\"hello world\")\n```\n\nI'll write it to \"/tmp/hearth-w0-project/hello.py\".\n",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"content\":\"print(\\\"hello world\\\")\\n\",\"path\":\"/tmp/hearth-w0-project/hello.py\"}",
+        "name": "write"
+       },
+       "id": "call_3B9662731D1E445C8A26745E",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 638,
+   "completion_tokens": 119,
+   "total_tokens": 757,
+   "completion_tokens_details": {
+    "reasoning_tokens": 68
+   }
+  },
+  "se_signature": "MEQCIH7oNPPHP8bYfsGwAPFLW2NHz0ccgLc4jqYJ3Fl2xSioAiAfnS7wdj+bMzkOz+ZartiylxD5zv83Ik0wtHagqDTZcg==",
+  "response_hash": "25dcc4bf21d1fc39f4499937e2bc1e0c7b37de1f16a61b9e0ca820272ed38043"
+ },
+ "row": {
+  "trial": 2,
+  "agent": "smith",
+  "expect": "write",
+  "verdict": "pass",
+  "called": [
+   "write"
+  ],
+  "expected_tool_called": true,
+  "seconds": 2.5,
+  "finish": "tool_calls",
+  "prompt_tokens": 638,
+  "prompt_tps": 0,
+  "gen_tokens": 119,
+  "gen_tps": 47.83,
+  "reasoning_chars": 246,
+  "error": null
+ }
+}

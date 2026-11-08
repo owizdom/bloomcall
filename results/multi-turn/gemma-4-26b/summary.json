@@ -1,0 +1,277 @@
+{
+ "summary": {
+  "model": "gemma-4-26b",
+  "episodes": 12,
+  "valid_episodes": 12,
+  "passed": 12,
+  "per_task": {
+   "fix_bug": "2/2",
+   "read_port": "2/2",
+   "count_rows": "2/2",
+   "rename": "2/2",
+   "find_secret": "2/2",
+   "fix_sqli": "2/2"
+  },
+  "hallucinated_turns": 0,
+  "tool_turns": 61,
+  "errors": 0,
+  "tokens": {
+   "prompt": 52551,
+   "completion": 2393
+  }
+ },
+ "rows": [
+  {
+   "task": "fix_bug",
+   "pass": true,
+   "judge": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+   "turns": 8,
+   "verdicts": {
+    "call": 7,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 14.1,
+   "usage": {
+    "prompt": 5854,
+    "completion": 282
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1
+  },
+  {
+   "task": "read_port",
+   "pass": true,
+   "judge": "'8443'",
+   "turns": 4,
+   "verdicts": {
+    "call": 3,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 6.1,
+   "usage": {
+    "prompt": 2353,
+    "completion": 81
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1
+  },
+  {
+   "task": "count_rows",
+   "pass": true,
+   "judge": "'1284'",
+   "turns": 3,
+   "verdicts": {
+    "call": 2,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 5.7,
+   "usage": {
+    "prompt": 1634,
+    "completion": 55
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1
+  },
+  {
+   "task": "rename",
+   "pass": true,
+   "judge": "",
+   "turns": 11,
+   "verdicts": {
+    "call": 10,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 19.8,
+   "usage": {
+    "prompt": 8589,
+    "completion": 380
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1
+  },
+  {
+   "task": "find_secret",
+   "pass": true,
+   "judge": "# Hardcoded Cloud Credentials\n\n- deploy/settings.py:17: AWS_ACCESS_KEY_ID = \"AKIAQ7HX3MZP4YRN2KDW\"\n",
+   "turns": 5,
+   "verdicts": {
+    "call": 4,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 8.6,
+   "usage": {
+    "prompt": 3591,
+    "completion": 186
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1
+  },
+  {
+   "task": "fix_sqli",
+   "pass": true,
+   "judge": "",
+   "turns": 4,
+   "verdicts": {
+    "call": 3,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 8.0,
+   "usage": {
+    "prompt": 2501,
+    "completion": 158
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1
+  },
+  {
+   "task": "fix_bug",
+   "pass": true,
+   "judge": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+   "turns": 8,
+   "verdicts": {
+    "call": 7,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 14.3,
+   "usage": {
+    "prompt": 5854,
+    "completion": 279
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2
+  },
+  {
+   "task": "read_port",
+   "pass": true,
+   "judge": "'8443'",
+   "turns": 4,
+   "verdicts": {
+    "call": 3,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 6.2,
+   "usage": {
+    "prompt": 2353,
+    "completion": 81
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2
+  },
+  {
+   "task": "count_rows",
+   "pass": true,
+   "judge": "'1284'",
+   "turns": 3,
+   "verdicts": {
+    "call": 2,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 4.5,
+   "usage": {
+    "prompt": 1634,
+    "completion": 55
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2
+  },
+  {
+   "task": "rename",
+   "pass": true,
+   "judge": "",
+   "turns": 11,
+   "verdicts": {
+    "call": 10,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 21.2,
+   "usage": {
+    "prompt": 8589,
+    "completion": 380
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2
+  },
+  {
+   "task": "find_secret",
+   "pass": true,
+   "judge": "# Findings\n\n## Hardcoded Cloud Credentials\n\n- `deploy/settings.py`: Line 17 (AWS_ACCESS_KEY_ID)\n",
+   "turns": 8,
+   "verdicts": {
+    "call": 7,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 15.5,
+   "usage": {
+    "prompt": 7098,
+    "completion": 298
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2
+  },
+  {
+   "task": "fix_sqli",
+   "pass": true,
+   "judge": "",
+   "turns": 4,
+   "verdicts": {
+    "call": 3,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 6.8,
+   "usage": {
+    "prompt": 2501,
+    "completion": 158
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2
+  }
+ ]
+}

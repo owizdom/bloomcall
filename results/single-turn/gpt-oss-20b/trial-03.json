@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "gpt-oss-20b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are smith, a general software agent running locally in hearth. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "In config.toml the line `timeout = 60` should be `timeout = 30`. Change it."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-fe737b3a-fc0c-4b9c-a595-5065a4564e40",
+  "object": "chat.completion",
+  "created": 1794129889,
+  "model": "gpt-oss-20b",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "",
+     "reasoning": "We need to edit config.toml. Let's read it.",
+     "reasoning_content": "We need to edit config.toml. Let's read it.",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "We need to edit config.toml. Let's read it.",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"path\":\"config.toml\"}",
+        "name": "read"
+       },
+       "id": "call_9760EFF99FBB43689B8222BF",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 392,
+   "completion_tokens": 37,
+   "total_tokens": 429,
+   "completion_tokens_details": {
+    "reasoning_tokens": 12
+   }
+  },
+  "se_signature": "MEUCIQDZqTtBZrtkDDL1fh9iqLHb5sZa9L2iSi4TcIBl28DHyQIgeGiDOgHOi6TqKDRkDcde5a/e1Bn8eVjKhhNj/ryrnE4=",
+  "response_hash": "a88ff6d2a41e7763a685a00c5e77dd79dd890c025261f208e803906234f8bc2c"
+ },
+ "row": {
+  "trial": 3,
+  "agent": "smith",
+  "expect": "edit",
+  "verdict": "pass",
+  "called": [
+   "read"
+  ],
+  "expected_tool_called": false,
+  "seconds": 2.4,
+  "finish": "tool_calls",
+  "prompt_tokens": 392,
+  "prompt_tps": 0,
+  "gen_tokens": 37,
+  "gen_tps": 15.67,
+  "reasoning_chars": 43,
+  "error": null
+ }
+}

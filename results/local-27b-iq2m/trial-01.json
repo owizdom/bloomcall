@@ -1,0 +1,223 @@
+{
+ "request": {
+  "model": "qwen3.8-27b-turbo",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are smith, a general software agent running locally in hearth. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "Show me what's in notes.txt."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 4096,
+  "stream": false
+ },
+ "response": {
+  "choices": [
+   {
+    "finish_reason": "tool_calls",
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "",
+     "reasoning_content": "The user wants to see the contents of notes.txt. I should use the read tool to display the file contents. This is a straightforward request - no need for complex reasoning.",
+     "tool_calls": [
+      {
+       "type": "function",
+       "function": {
+        "name": "read",
+        "arguments": "{\"path\":\"notes.txt\"}"
+       },
+       "id": "YWRj9Y2NsLwUC1zhIiEvMTlgN3Q0vl4r"
+      }
+     ]
+    }
+   }
+  ],
+  "created": 1794126678,
+  "model": "qwen3.8-27b-turbo",
+  "system_fingerprint": "b12110-cd959bae9",
+  "object": "chat.completion",
+  "usage": {
+   "completion_tokens": 63,
+   "prompt_tokens": 793,
+   "total_tokens": 856,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   }
+  },
+  "id": "chatcmpl-lBjAGM1bVvdu2JStgZrix5YYVqy4Rt7c",
+  "timings": {
+   "cache_n": 0,
+   "prompt_n": 793,
+   "prompt_ms": 45054.123,
+   "prompt_per_token_ms": 56.81478310214376,
+   "prompt_per_second": 17.601052849258657,
+   "predicted_n": 63,
+   "predicted_ms": 147116.038,
+   "predicted_per_token_ms": 2372.8393225806453,
+   "predicted_per_second": 0.421436036769832
+  }
+ },
+ "row": {
+  "trial": 1,
+  "agent": "smith",
+  "expect": "read",
+  "verdict": "pass",
+  "called": [
+   "read"
+  ],
+  "expected_tool_called": true,
+  "seconds": 192.6,
+  "finish": "tool_calls",
+  "prompt_tokens": 793,
+  "prompt_tps": 17.6,
+  "gen_tokens": 63,
+  "gen_tps": 0.42,
+  "reasoning_chars": 172,
+  "error": null
+ }
+}

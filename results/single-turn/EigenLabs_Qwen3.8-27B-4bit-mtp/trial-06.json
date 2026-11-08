@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "EigenLabs/Qwen3.8-27B-4bit-mtp",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are smith, a general software agent running locally in hearth. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "List all the TypeScript files under src."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-1be208fa-c1d6-494f-ae7f-a5cb3c5af482",
+  "object": "chat.completion",
+  "created": 1794129833,
+  "model": "EigenLabs/Qwen3.8-27B-4bit-mtp",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "\n\n",
+     "reasoning": "The user wants me to list all TypeScript files under src. Let me use the glob tool to find them.\n",
+     "reasoning_content": "The user wants me to list all TypeScript files under src. Let me use the glob tool to find them.\n",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "The user wants me to list all TypeScript files under src. Let me use the glob tool to find them.\n",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"path\":\"src\",\"pattern\":\"**/*.ts\"}",
+        "name": "glob"
+       },
+       "id": "call_8501FDBC1A764AD3AEFF88BB",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 676,
+   "completion_tokens": 64,
+   "total_tokens": 740,
+   "completion_tokens_details": {
+    "reasoning_tokens": 23
+   }
+  },
+  "se_signature": "MEYCIQC8r3Ch5oQRLq0tD3HkQ9S8LKj8hX0hXvZDftZELiS2lQIhAPwtvViU3rnFRveyZdOFstK9HAw5grCzMr5//r6/bX3N",
+  "response_hash": "ceca9d7d7986b24d88f04bc34e94381b3a928209c03fe03bde91bf41cc5a9ff1"
+ },
+ "row": {
+  "trial": 6,
+  "agent": "smith",
+  "expect": "glob",
+  "verdict": "pass",
+  "called": [
+   "glob"
+  ],
+  "expected_tool_called": true,
+  "seconds": 2.6,
+  "finish": "tool_calls",
+  "prompt_tokens": 676,
+  "prompt_tps": 0,
+  "gen_tokens": 64,
+  "gen_tps": 24.45,
+  "reasoning_chars": 97,
+  "error": null
+ }
+}

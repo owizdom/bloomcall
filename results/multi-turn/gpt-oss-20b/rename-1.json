@@ -1,0 +1,114 @@
+{
+ "model": "gpt-oss-20b",
+ "row": {
+  "task": "rename",
+  "pass": false,
+  "judge": "get_user still in ['users.py', 'api.py', 'cli.py']",
+  "turns": 5,
+  "verdicts": {
+   "call": 4,
+   "final": 1,
+   "text_leak": 0,
+   "unoffered": 0,
+   "bad_args": 0
+  },
+  "seconds": 10.1,
+  "usage": {
+   "prompt": 2901,
+   "completion": 333
+  },
+  "error": null,
+  "hit_turn_limit": false,
+  "trial": 1
+ },
+ "transcript": [
+  {
+   "role": "system",
+   "content": "You are smith, a general software agent running locally in hearth. The working directory is the project root. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool. When the task is done, reply with a one-line summary."
+  },
+  {
+   "role": "user",
+   "content": "Rename the function get_user to fetch_user everywhere under src/, including every call and import."
+  },
+  {
+   "role": "assistant",
+   "content": "",
+   "tool_calls": [
+    {
+     "function": {
+      "arguments": "{\"path\":\"src\",\"pattern\":\"get_user\"}",
+      "name": "grep"
+     },
+     "id": "call_0CDEE62982DE41E38F0A5A26",
+     "type": "function"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_0CDEE62982DE41E38F0A5A26",
+   "content": "src/api.py:1:from users import get_user\nsrc/api.py:5:    return get_user(uid)\nsrc/cli.py:1:from users import get_user\nsrc/cli.py:5:    print(get_user(1))\nsrc/users.py:1:def get_user(uid):"
+  },
+  {
+   "role": "assistant",
+   "content": "",
+   "tool_calls": [
+    {
+     "function": {
+      "arguments": "{\"path\":\"src\",\"pattern\":\"get_user\"}",
+      "name": "grep"
+     },
+     "id": "call_140DDB5E04BE4B8FAE0CA599",
+     "type": "function"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_140DDB5E04BE4B8FAE0CA599",
+   "content": "src/api.py:1:from users import get_user\nsrc/api.py:5:    return get_user(uid)\nsrc/cli.py:1:from users import get_user\nsrc/cli.py:5:    print(get_user(1))\nsrc/users.py:1:def get_user(uid):"
+  },
+  {
+   "role": "assistant",
+   "content": "",
+   "tool_calls": [
+    {
+     "function": {
+      "arguments": "{\"path\":\"src/users.py\",\"offset\":0,\"limit\":200}",
+      "name": "read"
+     },
+     "id": "call_315508CC82DC4AB5B94E8294",
+     "type": "function"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_315508CC82DC4AB5B94E8294",
+   "content": "1\tdef get_user(uid):\n2\t    return {\"id\": uid}"
+  },
+  {
+   "role": "assistant",
+   "content": "",
+   "tool_calls": [
+    {
+     "function": {
+      "arguments": "{\"path\":\"src/api.py\",\"limit\":200,\"offset\":0}",
+      "name": "read"
+     },
+     "id": "call_EEB6FFA279FE4D58A1D3992B",
+     "type": "function"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_EEB6FFA279FE4D58A1D3992B",
+   "content": "1\tfrom users import get_user\n2\t\n3\t\n4\tdef handler(uid):\n5\t    return get_user(uid)"
+  },
+  {
+   "role": "assistant",
+   "content": " to=functions.read?commentary<|constrain|>json<|message|>{\"limit\":200,\"offset\":0,\"path\":\"src\\/cli.py\"}"
+  }
+ ]
+}

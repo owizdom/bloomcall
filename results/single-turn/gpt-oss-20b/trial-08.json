@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "gpt-oss-20b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are warden, a security agent running locally in hearth. You audit code and systems for vulnerabilities, secrets and misconfiguration, and you report evidence with file and line. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "Search this repo for hardcoded AWS access keys (they start with AKIA)."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-d1ac7f11-bc26-4256-81ea-7a0fb88029f1",
+  "object": "chat.completion",
+  "created": 1794129898,
+  "model": "gpt-oss-20b",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "",
+     "reasoning": "We need to search repo for strings starting with AKIA. Use grep.",
+     "reasoning_content": "We need to search repo for strings starting with AKIA. Use grep.",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "We need to search repo for strings starting with AKIA. Use grep.",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"path\":\"\", \"pattern\":\"AKIA\"}",
+        "name": "grep"
+       },
+       "id": "call_53AAB5C80C964BF6B02C793D",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 407,
+   "completion_tokens": 44,
+   "total_tokens": 451,
+   "completion_tokens_details": {
+    "reasoning_tokens": 15
+   }
+  },
+  "se_signature": "MEYCIQCErp4LA7c06V42jFEIl/7JMdtXWq9dVVJktXQYRFMvIgIhAJN3EpIPsiLODYHVKvL8gyS9ijdAQthvHoKeq3wwXkRP",
+  "response_hash": "27ec31a419042f63bfde6afe2257b505247f03995eb2dc6b3287b5c8fdbe0528"
+ },
+ "row": {
+  "trial": 8,
+  "agent": "warden",
+  "expect": "grep",
+  "verdict": "pass",
+  "called": [
+   "grep"
+  ],
+  "expected_tool_called": true,
+  "seconds": 1.8,
+  "finish": "tool_calls",
+  "prompt_tokens": 407,
+  "prompt_tps": 0,
+  "gen_tokens": 44,
+  "gen_tps": 23.98,
+  "reasoning_chars": 64,
+  "error": null
+ }
+}

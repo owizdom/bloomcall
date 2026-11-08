@@ -1,0 +1,277 @@
+{
+ "summary": {
+  "model": "glm-5.3-flash",
+  "episodes": 12,
+  "valid_episodes": 12,
+  "passed": 12,
+  "per_task": {
+   "fix_bug": "2/2",
+   "read_port": "2/2",
+   "count_rows": "2/2",
+   "rename": "2/2",
+   "find_secret": "2/2",
+   "fix_sqli": "2/2"
+  },
+  "hallucinated_turns": 0,
+  "tool_turns": 46,
+  "errors": 0,
+  "tokens": {
+   "prompt": 45638,
+   "completion": 5142
+  }
+ },
+ "rows": [
+  {
+   "task": "fix_bug",
+   "pass": true,
+   "judge": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+   "turns": 5,
+   "verdicts": {
+    "call": 4,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 12.7,
+   "usage": {
+    "prompt": 3676,
+    "completion": 218
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1
+  },
+  {
+   "task": "read_port",
+   "pass": true,
+   "judge": "'8443\\n'",
+   "turns": 3,
+   "verdicts": {
+    "call": 2,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 6.7,
+   "usage": {
+    "prompt": 1820,
+    "completion": 67
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1
+  },
+  {
+   "task": "count_rows",
+   "pass": true,
+   "judge": "'1284'",
+   "turns": 4,
+   "verdicts": {
+    "call": 3,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 10.3,
+   "usage": {
+    "prompt": 2417,
+    "completion": 208
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1
+  },
+  {
+   "task": "rename",
+   "pass": true,
+   "judge": "",
+   "turns": 6,
+   "verdicts": {
+    "call": 5,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 17.2,
+   "usage": {
+    "prompt": 4800,
+    "completion": 350
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1
+  },
+  {
+   "task": "find_secret",
+   "pass": true,
+   "judge": "# Findings: Hardcoded Cloud Credentials\n\n## 1. AWS Access Key ID hardcoded in deploy settings\n\n- **File:** `deploy/settings.py`\n- **Line:** 17\n- **Evidence:** `AWS_ACCESS_KEY_ID = \"AKIAQ7HX3MZP4YRN2KD",
+   "turns": 5,
+   "verdicts": {
+    "call": 4,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 27.0,
+   "usage": {
+    "prompt": 5174,
+    "completion": 1181
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1
+  },
+  {
+   "task": "fix_sqli",
+   "pass": true,
+   "judge": "",
+   "turns": 4,
+   "verdicts": {
+    "call": 3,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 15.5,
+   "usage": {
+    "prompt": 2876,
+    "completion": 411
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1
+  },
+  {
+   "task": "fix_bug",
+   "pass": true,
+   "judge": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+   "turns": 5,
+   "verdicts": {
+    "call": 4,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 20.7,
+   "usage": {
+    "prompt": 3547,
+    "completion": 201
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2
+  },
+  {
+   "task": "read_port",
+   "pass": true,
+   "judge": "'8443\\n'",
+   "turns": 3,
+   "verdicts": {
+    "call": 2,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 16.2,
+   "usage": {
+    "prompt": 1820,
+    "completion": 106
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2
+  },
+  {
+   "task": "count_rows",
+   "pass": true,
+   "judge": "'1284\\n'",
+   "turns": 5,
+   "verdicts": {
+    "call": 4,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 32.3,
+   "usage": {
+    "prompt": 3207,
+    "completion": 336
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2
+  },
+  {
+   "task": "rename",
+   "pass": true,
+   "judge": "",
+   "turns": 6,
+   "verdicts": {
+    "call": 5,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 32.3,
+   "usage": {
+    "prompt": 4785,
+    "completion": 384
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2
+  },
+  {
+   "task": "find_secret",
+   "pass": true,
+   "judge": "# Findings: Hardcoded Cloud Credentials\n\n## 1. Hardcoded AWS Access Key ID\n- **File:** `deploy/settings.py`\n- **Line:** 17\n- **Evidence:** `AWS_ACCESS_KEY_ID = \"AKIAQ7HX3MZP4YRN2KDW\"`\n- **Severity:** ",
+   "turns": 5,
+   "verdicts": {
+    "call": 4,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 33.9,
+   "usage": {
+    "prompt": 5156,
+    "completion": 1068
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2
+  },
+  {
+   "task": "fix_sqli",
+   "pass": true,
+   "judge": "",
+   "turns": 7,
+   "verdicts": {
+    "call": 6,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 39.4,
+   "usage": {
+    "prompt": 6360,
+    "completion": 612
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2
+  }
+ ]
+}

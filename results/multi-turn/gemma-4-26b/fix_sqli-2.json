@@ -1,0 +1,95 @@
+{
+ "model": "gemma-4-26b",
+ "row": {
+  "task": "fix_sqli",
+  "pass": true,
+  "judge": "",
+  "turns": 4,
+  "verdicts": {
+   "call": 3,
+   "final": 1,
+   "text_leak": 0,
+   "unoffered": 0,
+   "bad_args": 0
+  },
+  "seconds": 6.8,
+  "usage": {
+   "prompt": 2501,
+   "completion": 158
+  },
+  "error": null,
+  "hit_turn_limit": false,
+  "trial": 2
+ },
+ "transcript": [
+  {
+   "role": "system",
+   "content": "You are warden, a security agent running locally in hearth. You audit code for vulnerabilities and secrets and report evidence with file and line. The working directory is the project root. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool. When the task is done, reply with a one-line summary."
+  },
+  {
+   "role": "user",
+   "content": "auth.py has a SQL injection vulnerability in login(). Fix it with a parameterized query, keeping valid logins working."
+  },
+  {
+   "role": "assistant",
+   "content": "",
+   "tool_calls": [
+    {
+     "function": {
+      "arguments": "{\"pattern\":\"def login\"}",
+      "name": "grep"
+     },
+     "id": "call_9A0D635B55324BA99F278A20",
+     "type": "function"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_9A0D635B55324BA99F278A20",
+   "content": "auth.py:4:def login(conn, name, pw):"
+  },
+  {
+   "role": "assistant",
+   "content": "",
+   "tool_calls": [
+    {
+     "function": {
+      "arguments": "{\"path\":\"auth.py\"}",
+      "name": "read"
+     },
+     "id": "call_1E9EEAAACAC049649098177D",
+     "type": "function"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_1E9EEAAACAC049649098177D",
+   "content": "1\timport sqlite3\n2\t\n3\t\n4\tdef login(conn, name, pw):\n5\t    cur = conn.execute(\n6\t        f\"SELECT name FROM users WHERE name = '{name}' AND pw = '{pw}'\"\n7\t    )\n8\t    row = cur.fetchone()\n9\t    return row[0] if row else None"
+  },
+  {
+   "role": "assistant",
+   "content": "",
+   "tool_calls": [
+    {
+     "function": {
+      "arguments": "{\"new_string\":\"    cur = conn.execute(\\n        \\\"SELECT name FROM users WHERE name = ? AND pw = ?\\\",\\n        (name, pw)\\n    )\",\"old_string\":\"    cur = conn.execute(\\n        f\\\"SELECT name FROM users WHERE name = '{name}' AND pw = '{pw}'\\\"\\n    )\",\"path\":\"auth.py\"}",
+      "name": "edit"
+     },
+     "id": "call_C68E9B293C5F4592930F3BD0",
+     "type": "function"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_C68E9B293C5F4592930F3BD0",
+   "content": "edited auth.py"
+  },
+  {
+   "role": "assistant",
+   "content": "I have fixed the SQL injection vulnerability in `auth.py` by replacing the f-string with a parameterized query."
+  }
+ ]
+}

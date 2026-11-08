@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "qwen3.5-35b-a3b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are warden, a security agent running locally in hearth. You audit code and systems for vulnerabilities, secrets and misconfiguration, and you report evidence with file and line. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "Write our findings so far to findings.md with the heading '# Findings' and the line 'No secrets found yet.'"
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-6d6d5de8-d2f1-4a24-8cdf-9b4e40a82a12",
+  "object": "chat.completion",
+  "created": 1794129978,
+  "model": "qwen3.5-35b-a3b",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "\n\n",
+     "reasoning": "The user wants me to write findings to a file called \"findings.md\" with a heading \"# Findings\" and the line \"No secrets found yet.\" This is a simple write operation. I'll use the write function to create this file with the specified content.\n",
+     "reasoning_content": "The user wants me to write findings to a file called \"findings.md\" with a heading \"# Findings\" and the line \"No secrets found yet.\" This is a simple write operation. I'll use the write function to create this file with the specified content.\n",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "The user wants me to write findings to a file called \"findings.md\" with a heading \"# Findings\" and the line \"No secrets found yet.\" This is a simple write operation. I'll use the write function to create this file with the specified content.\n",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"path\":\"/tmp/hearth-w0-project/findings.md\",\"content\":\"# Findings\\n\\nNo secrets found yet.\"}",
+        "name": "write"
+       },
+       "id": "call_84EEC530488E4B1FB6C0269F",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 676,
+   "completion_tokens": 110,
+   "total_tokens": 786,
+   "completion_tokens_details": {
+    "reasoning_tokens": 55
+   }
+  },
+  "se_signature": "MEUCIQCPMKQxmvwB4uNuWAFQfSH9cMkA4QWqoZoGvo0x0hGQrQIgHumYrJtYeipM9PdzCcewDtw+sMfTYHDgtdy+fIAzVr4=",
+  "response_hash": "46b628ddde00080fb0bb5edcf2ec2660c4ab0a9567fb51ecc4625349315bd116"
+ },
+ "row": {
+  "trial": 10,
+  "agent": "warden",
+  "expect": "write",
+  "verdict": "pass",
+  "called": [
+   "write"
+  ],
+  "expected_tool_called": true,
+  "seconds": 2.3,
+  "finish": "tool_calls",
+  "prompt_tokens": 676,
+  "prompt_tps": 0,
+  "gen_tokens": 110,
+  "gen_tps": 46.82,
+  "reasoning_chars": 242,
+  "error": null
+ }
+}

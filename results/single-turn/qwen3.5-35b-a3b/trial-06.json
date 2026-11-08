@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "qwen3.5-35b-a3b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are smith, a general software agent running locally in hearth. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "List all the TypeScript files under src."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-9db71679-1999-4925-91d7-26a0684a5885",
+  "object": "chat.completion",
+  "created": 1794129969,
+  "model": "qwen3.5-35b-a3b",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "\n\n",
+     "reasoning": "The user wants to list all TypeScript files under the src directory. I can use the glob function to find files matching a pattern. The pattern for TypeScript files would be \"*.ts\" and I need to search under \"src\".\n",
+     "reasoning_content": "The user wants to list all TypeScript files under the src directory. I can use the glob function to find files matching a pattern. The pattern for TypeScript files would be \"*.ts\" and I need to search under \"src\".\n",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "The user wants to list all TypeScript files under the src directory. I can use the glob function to find files matching a pattern. The pattern for TypeScript files would be \"*.ts\" and I need to search under \"src\".\n",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"path\":\"src\",\"pattern\":\"**/*.ts\"}",
+        "name": "glob"
+       },
+       "id": "call_9FCF70D562144E6BBE46A9E1",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 638,
+   "completion_tokens": 87,
+   "total_tokens": 725,
+   "completion_tokens_details": {
+    "reasoning_tokens": 46
+   }
+  },
+  "se_signature": "MEQCIGgsFjFlj5bLRPmrFAb4/BJar76NZ3chnG+855gXIhKXAiA5Zl1xoeGibkRjKCF/6mpqooAJMXcRPrzSeQSvYILXKg==",
+  "response_hash": "d4b041045715eabb6f4db63bc35b767ee94089fc17c563379a33d107bb6f2a6f"
+ },
+ "row": {
+  "trial": 6,
+  "agent": "smith",
+  "expect": "glob",
+  "verdict": "pass",
+  "called": [
+   "glob"
+  ],
+  "expected_tool_called": true,
+  "seconds": 4.4,
+  "finish": "tool_calls",
+  "prompt_tokens": 638,
+  "prompt_tps": 0,
+  "gen_tokens": 87,
+  "gen_tps": 19.57,
+  "reasoning_chars": 214,
+  "error": null
+ }
+}

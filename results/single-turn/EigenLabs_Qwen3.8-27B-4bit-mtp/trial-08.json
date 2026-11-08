@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "EigenLabs/Qwen3.8-27B-4bit-mtp",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are warden, a security agent running locally in hearth. You audit code and systems for vulnerabilities, secrets and misconfiguration, and you report evidence with file and line. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "Search this repo for hardcoded AWS access keys (they start with AKIA)."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-3d388076-967d-47ca-bb45-c5e3fd643ed1",
+  "object": "chat.completion",
+  "created": 1794129838,
+  "model": "EigenLabs/Qwen3.8-27B-4bit-mtp",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "\n\n",
+     "reasoning": "The user wants to search for hardcoded AWS access keys (starting with AKIA) within the repository. Let me try searching using grep.\n",
+     "reasoning_content": "The user wants to search for hardcoded AWS access keys (starting with AKIA) within the repository. Let me try searching using grep.\n",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "The user wants to search for hardcoded AWS access keys (starting with AKIA) within the repository. Let me try searching using grep.\n",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"pattern\":\"AKIA[0-9A-Z]{16}\",\"path\":\"/tmp/hearth-w0-project\"}",
+        "name": "grep"
+       },
+       "id": "call_29D155D68E284F1C91A2437E",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 705,
+   "completion_tokens": 83,
+   "total_tokens": 788,
+   "completion_tokens_details": {
+    "reasoning_tokens": 28
+   }
+  },
+  "se_signature": "MEYCIQDhzA3JLRCofpgnb6gnmc4WvbooSe3h/tHZ4DdzvjXoZgIhAN5R1/IpMy2lqQPumwgzhauclkmWSgGQhsIJbY1YHIW+",
+  "response_hash": "a9711a029b383534f46e830dfc835abc1651c5736ac4f0ef0e75777c7dfad5a4"
+ },
+ "row": {
+  "trial": 8,
+  "agent": "warden",
+  "expect": "grep",
+  "verdict": "pass",
+  "called": [
+   "grep"
+  ],
+  "expected_tool_called": true,
+  "seconds": 2.9,
+  "finish": "tool_calls",
+  "prompt_tokens": 705,
+  "prompt_tps": 0,
+  "gen_tokens": 83,
+  "gen_tps": 28.75,
+  "reasoning_chars": 132,
+  "error": null
+ }
+}

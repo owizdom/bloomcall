@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "EigenLabs/Qwen3.8-27B-4bit-mtp",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are warden, a security agent running locally in hearth. You audit code and systems for vulnerabilities, secrets and misconfiguration, and you report evidence with file and line. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "Check which processes are listening on TCP ports on this machine."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-cb569f57-2100-4780-93a5-9141fd4f3fd1",
+  "object": "chat.completion",
+  "created": 1794129840,
+  "model": "EigenLabs/Qwen3.8-27B-4bit-mtp",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "\n\n",
+     "reasoning": "The user wants to check which processes are listening on TCP ports on this machine. Let's run a command to check the listening TCP ports.\n\nI'll use `ss -tlnp` or `netstat -tlnp` to check the listening TCP ports.\n",
+     "reasoning_content": "The user wants to check which processes are listening on TCP ports on this machine. Let's run a command to check the listening TCP ports.\n\nI'll use `ss -tlnp` or `netstat -tlnp` to check the listening TCP ports.\n",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "The user wants to check which processes are listening on TCP ports on this machine. Let's run a command to check the listening TCP ports.\n\nI'll use `ss -tlnp` or `netstat -tlnp` to check the listening TCP ports.\n",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"command\":\"ss -tlnp 2>/dev/null || netstat -tlnp 2>/dev/null || lsof -iTCP -sTCP:LISTEN -P 2>/dev/null\"}",
+        "name": "shell"
+       },
+       "id": "call_FC3B0FEACDCC4F9E99D090FC",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 702,
+   "completion_tokens": 125,
+   "total_tokens": 827,
+   "completion_tokens_details": {
+    "reasoning_tokens": 56
+   }
+  },
+  "se_signature": "MEYCIQCONG7+Yjq7AklcxIzSSDxRNEoR/I3We/bZ/jZU1v9aDQIhALXxrKxvIjuyY2FNgp1jwXJS5GNVVTPsQUNSpSl8Ze1v",
+  "response_hash": "50df0b8237ea86673757a12459a5564f391f930ac587e85f13e6f54f534658c6"
+ },
+ "row": {
+  "trial": 9,
+  "agent": "warden",
+  "expect": "shell",
+  "verdict": "pass",
+  "called": [
+   "shell"
+  ],
+  "expected_tool_called": true,
+  "seconds": 2.9,
+  "finish": "tool_calls",
+  "prompt_tokens": 702,
+  "prompt_tps": 0,
+  "gen_tokens": 125,
+  "gen_tps": 42.78,
+  "reasoning_chars": 212,
+  "error": null
+ }
+}

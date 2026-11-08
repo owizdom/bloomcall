@@ -1,0 +1,292 @@
+{
+ "summary": {
+  "model": "gpt-oss-20b",
+  "episodes": 12,
+  "valid_episodes": 11,
+  "passed": 9,
+  "tool_turns": 54,
+  "text_leaks": 2,
+  "unoffered_or_bad_args": 0,
+  "false_completion_claims": 0,
+  "silent_stops": 0,
+  "errors": 1
+ },
+ "rows": [
+  {
+   "task": "count_rows",
+   "pass": true,
+   "judge": "'1284'",
+   "turns": 3,
+   "verdicts": {
+    "call": 3,
+    "final": 0,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 18.9,
+   "usage": {
+    "prompt": 23580,
+    "completion": 586
+   },
+   "error": "<HTTPError 422: 'Unprocessable Entity'>",
+   "hit_turn_limit": false,
+   "trial": 1,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "count_rows",
+   "pass": true,
+   "judge": "'1284'",
+   "turns": 3,
+   "verdicts": {
+    "call": 2,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 9.0,
+   "usage": {
+    "prompt": 23580,
+    "completion": 292
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "find_secret",
+   "pass": true,
+   "judge": "Hardcoded Cloud Credentials Found:\n\n- deploy/settings.py:17\n",
+   "turns": 11,
+   "verdicts": {
+    "call": 10,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 30.1,
+   "usage": {
+    "prompt": 7613,
+    "completion": 1303
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "find_secret",
+   "pass": true,
+   "judge": "Hardcoded Cloud Credentials Found:\n\n- deploy/settings.py:17\n",
+   "turns": 8,
+   "verdicts": {
+    "call": 7,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 18.4,
+   "usage": {
+    "prompt": 5006,
+    "completion": 813
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "fix_bug",
+   "pass": true,
+   "judge": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+   "turns": 5,
+   "verdicts": {
+    "call": 4,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 10.3,
+   "usage": {
+    "prompt": 2761,
+    "completion": 394
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "fix_bug",
+   "pass": true,
+   "judge": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+   "turns": 5,
+   "verdicts": {
+    "call": 4,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 9.6,
+   "usage": {
+    "prompt": 2751,
+    "completion": 310
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "fix_sqli",
+   "pass": true,
+   "judge": "",
+   "turns": 6,
+   "verdicts": {
+    "call": 5,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 13.6,
+   "usage": {
+    "prompt": 3678,
+    "completion": 523
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "fix_sqli",
+   "pass": true,
+   "judge": "",
+   "turns": 6,
+   "verdicts": {
+    "call": 5,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 12.9,
+   "usage": {
+    "prompt": 3678,
+    "completion": 523
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "read_port",
+   "pass": true,
+   "judge": "'8443'",
+   "turns": 4,
+   "verdicts": {
+    "call": 3,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 7.3,
+   "usage": {
+    "prompt": 1995,
+    "completion": 138
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "read_port",
+   "pass": true,
+   "judge": "'8443'",
+   "turns": 4,
+   "verdicts": {
+    "call": 3,
+    "final": 1,
+    "text_leak": 0,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 6.5,
+   "usage": {
+    "prompt": 1995,
+    "completion": 144
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "rename",
+   "pass": false,
+   "judge": "get_user still in ['users.py', 'api.py', 'cli.py']",
+   "turns": 5,
+   "verdicts": {
+    "call": 4,
+    "final": 0,
+    "text_leak": 1,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 10.1,
+   "usage": {
+    "prompt": 2901,
+    "completion": 333
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 1,
+   "false_completion_claim": false,
+   "silent_stop": false
+  },
+  {
+   "task": "rename",
+   "pass": false,
+   "judge": "get_user still in ['users.py', 'api.py', 'cli.py']",
+   "turns": 5,
+   "verdicts": {
+    "call": 4,
+    "final": 0,
+    "text_leak": 1,
+    "unoffered": 0,
+    "bad_args": 0
+   },
+   "seconds": 14.7,
+   "usage": {
+    "prompt": 2901,
+    "completion": 333
+   },
+   "error": null,
+   "hit_turn_limit": false,
+   "trial": 2,
+   "false_completion_claim": false,
+   "silent_stop": false
+  }
+ ]
+}

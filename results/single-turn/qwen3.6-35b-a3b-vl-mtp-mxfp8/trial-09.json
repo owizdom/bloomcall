@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "qwen3.6-35b-a3b-vl-mtp-mxfp8",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are warden, a security agent running locally in hearth. You audit code and systems for vulnerabilities, secrets and misconfiguration, and you report evidence with file and line. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "Check which processes are listening on TCP ports on this machine."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-7acc5b6d-979e-48b7-a2b0-eed985239f13",
+  "object": "chat.completion",
+  "created": 1794129880,
+  "model": "qwen3.6-35b-a3b-vl-mtp-mxfp8",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "\n\n",
+     "reasoning": "The user wants to check which processes are listening on TCP ports. I should use the `ss` or `netstat` command to list listening network ports and associated processes. The `ss -tlnp` command is generally preferred as it's faster and provides detailed information about listening TCP sockets and the processes using them.\n\nI will run `sudo ss -tlnp` to see the listening TCP ports and their associated processes.\n",
+     "reasoning_content": "The user wants to check which processes are listening on TCP ports. I should use the `ss` or `netstat` command to list listening network ports and associated processes. The `ss -tlnp` command is generally preferred as it's faster and provides detailed information about listening TCP sockets and the processes using them.\n\nI will run `sudo ss -tlnp` to see the listening TCP ports and their associated processes.\n",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "The user wants to check which processes are listening on TCP ports. I should use the `ss` or `netstat` command to list listening network ports and associated processes. The `ss -tlnp` command is generally preferred as it's faster and provides detailed information about listening TCP sockets and the processes using them.\n\nI will run `sudo ss -tlnp` to see the listening TCP ports and their associated processes.\n",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"command\":\"sudo ss -tlnp\"}",
+        "name": "shell"
+       },
+       "id": "call_EDBD5CA2726047D0B737CDCC",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 664,
+   "completion_tokens": 122,
+   "total_tokens": 786,
+   "completion_tokens_details": {
+    "reasoning_tokens": 89
+   }
+  },
+  "se_signature": "MEUCICxM+vZtl9q8m1VSe4+OgxRL0ZFoSowARyATG8ak3pPOAiEAszupBiVX/D6iF5+9LihOoN035OLRnYhKH62Ju2ETGuA=",
+  "response_hash": "296609fcc7c7be384945177dba68ad2818f8b65f2023a3e234ae4330a05561a5"
+ },
+ "row": {
+  "trial": 9,
+  "agent": "warden",
+  "expect": "shell",
+  "verdict": "pass",
+  "called": [
+   "shell"
+  ],
+  "expected_tool_called": true,
+  "seconds": 2.5,
+  "finish": "tool_calls",
+  "prompt_tokens": 664,
+  "prompt_tps": 0,
+  "gen_tokens": 122,
+  "gen_tps": 49.73,
+  "reasoning_chars": 413,
+  "error": null
+ }
+}

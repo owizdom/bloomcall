@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "EigenLabs/Qwen3.8-27B-4bit-mtp",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are smith, a general software agent running locally in hearth. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "Show me what's in notes.txt."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-2a20a944-5d4a-49e1-87f7-0dddb7ec422f",
+  "object": "chat.completion",
+  "created": 1794129821,
+  "model": "EigenLabs/Qwen3.8-27B-4bit-mtp",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "\n\n",
+     "reasoning": "The user is asking me to display the contents of notes.txt. Let me read that file.\n",
+     "reasoning_content": "The user is asking me to display the contents of notes.txt. Let me read that file.\n",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "The user is asking me to display the contents of notes.txt. Let me read that file.\n",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"path\":\"notes.txt\"}",
+        "name": "read"
+       },
+       "id": "call_4596E3E3C789432FB1B71C13",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 676,
+   "completion_tokens": 47,
+   "total_tokens": 723,
+   "completion_tokens_details": {
+    "reasoning_tokens": 20
+   }
+  },
+  "se_signature": "MEUCIQCQeUNcxxmS9qjA5pGUDjIjSYk5EzsBLe6qF26gFXy7dAIgCjuQffAdoaBCud4G59y9FKDHdG6B3ErPaLElfhRLo1I=",
+  "response_hash": "54413415f74167e1ed8ac4562e40c4e359d5b0e8e7f1673c4db1b76d40ffc04a"
+ },
+ "row": {
+  "trial": 1,
+  "agent": "smith",
+  "expect": "read",
+  "verdict": "pass",
+  "called": [
+   "read"
+  ],
+  "expected_tool_called": true,
+  "seconds": 2.1,
+  "finish": "tool_calls",
+  "prompt_tokens": 676,
+  "prompt_tps": 0,
+  "gen_tokens": 47,
+  "gen_tps": 22.69,
+  "reasoning_chars": 83,
+  "error": null
+ }
+}

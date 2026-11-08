@@ -1,0 +1,223 @@
+{
+ "request": {
+  "model": "qwen3.8-27b-turbo",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are smith, a general software agent running locally in hearth. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "Create hello.py that prints hello world."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 4096,
+  "stream": false
+ },
+ "response": {
+  "choices": [
+   {
+    "finish_reason": "tool_calls",
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "",
+     "reasoning_content": "The user wants me to create a Python file called hello.py that prints \"hello world\". This is straightforward - I'll use the write tool to create the file with the appropriate content.",
+     "tool_calls": [
+      {
+       "type": "function",
+       "function": {
+        "name": "write",
+        "arguments": "{\"path\":\"hello.py\",\"content\":\"print(\\\"hello world\\\")\"}"
+       },
+       "id": "YKAHhZ3bQ4mv7xFl0WXDQqSIyW4eR9x7"
+      }
+     ]
+    }
+   }
+  ],
+  "created": 1794126889,
+  "model": "qwen3.8-27b-turbo",
+  "system_fingerprint": "b12110-cd959bae9",
+  "object": "chat.completion",
+  "usage": {
+   "completion_tokens": 82,
+   "prompt_tokens": 793,
+   "total_tokens": 875,
+   "prompt_tokens_details": {
+    "cached_tokens": 775
+   }
+  },
+  "id": "chatcmpl-Wfz2iyJiIsUFu835oUq8dRyLZC3UFZy1",
+  "timings": {
+   "cache_n": 775,
+   "prompt_n": 18,
+   "prompt_ms": 8656.671,
+   "prompt_per_token_ms": 480.9261666666667,
+   "prompt_per_second": 2.0793212540940966,
+   "predicted_n": 82,
+   "predicted_ms": 201813.823,
+   "predicted_per_token_ms": 2491.528679012346,
+   "predicted_per_second": 0.40136001982381553
+  }
+ },
+ "row": {
+  "trial": 2,
+  "agent": "smith",
+  "expect": "write",
+  "verdict": "pass",
+  "called": [
+   "write"
+  ],
+  "expected_tool_called": true,
+  "seconds": 210.9,
+  "finish": "tool_calls",
+  "prompt_tokens": 18,
+  "prompt_tps": 2.1,
+  "gen_tokens": 82,
+  "gen_tps": 0.4,
+  "reasoning_chars": 183,
+  "error": null
+ }
+}

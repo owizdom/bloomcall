@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "qwen3.5-35b-a3b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are warden, a security agent running locally in hearth. You audit code and systems for vulnerabilities, secrets and misconfiguration, and you report evidence with file and line. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "Check which processes are listening on TCP ports on this machine."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-f1292641-f18a-4021-9c05-36dbdb4b354b",
+  "object": "chat.completion",
+  "created": 1794129976,
+  "model": "qwen3.5-35b-a3b",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "\n\n",
+     "reasoning": "The user wants to check which processes are listening on TCP ports. I need to use the shell tool to run a command that shows listening TCP ports and their associated processes.\n\nCommon commands for this include:\n- `netstat -tlnp` (shows TCP listening ports with process info)\n- `ss -tlnp` (socket statistics, similar to netstat but more modern)\n- `lsof -i -P -n | grep LISTEN` (lists open files/ports with filters)\n\nI'll use `ss -tlnp` as it's available on most modern Linux systems and provides clear output of listening TCP ports with process information.\n",
+     "reasoning_content": "The user wants to check which processes are listening on TCP ports. I need to use the shell tool to run a command that shows listening TCP ports and their associated processes.\n\nCommon commands for this include:\n- `netstat -tlnp` (shows TCP listening ports with process info)\n- `ss -tlnp` (socket statistics, similar to netstat but more modern)\n- `lsof -i -P -n | grep LISTEN` (lists open files/ports with filters)\n\nI'll use `ss -tlnp` as it's available on most modern Linux systems and provides clear output of listening TCP ports with process information.\n",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "The user wants to check which processes are listening on TCP ports. I need to use the shell tool to run a command that shows listening TCP ports and their associated processes.\n\nCommon commands for this include:\n- `netstat -tlnp` (shows TCP listening ports with process info)\n- `ss -tlnp` (socket statistics, similar to netstat but more modern)\n- `lsof -i -P -n | grep LISTEN` (lists open files/ports with filters)\n\nI'll use `ss -tlnp` as it's available on most modern Linux systems and provides clear output of listening TCP ports with process information.\n",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"command\":\"ss -tlnp 2>/dev/null || netstat -tlnp 2>/dev/null\"}",
+        "name": "shell"
+       },
+       "id": "call_6EF523F9AD75434390FD665E",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 664,
+   "completion_tokens": 189,
+   "total_tokens": 853,
+   "completion_tokens_details": {
+    "reasoning_tokens": 140
+   }
+  },
+  "se_signature": "MEUCIGSnK9KRT8hqYrhqJRhG7LKVZEhKfzZ9E4dpHhc0HEueAiEArPtNhkHubflO04kaVzYQV7kpOopVbH9oreT7FpGD+nQ=",
+  "response_hash": "0669228910aa24be081880fd22503a963ed44e407d4443b3c49c936e8677de64"
+ },
+ "row": {
+  "trial": 9,
+  "agent": "warden",
+  "expect": "shell",
+  "verdict": "pass",
+  "called": [
+   "shell"
+  ],
+  "expected_tool_called": true,
+  "seconds": 2.9,
+  "finish": "tool_calls",
+  "prompt_tokens": 664,
+  "prompt_tps": 0,
+  "gen_tokens": 189,
+  "gen_tps": 64.76,
+  "reasoning_chars": 558,
+  "error": null
+ }
+}

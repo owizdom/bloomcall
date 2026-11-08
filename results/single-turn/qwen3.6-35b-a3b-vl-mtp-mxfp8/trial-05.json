@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "qwen3.6-35b-a3b-vl-mtp-mxfp8",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are smith, a general software agent running locally in hearth. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "Find every TODO comment under src."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-b9bbe9ea-c25f-4379-a883-324ccf2cfb2e",
+  "object": "chat.completion",
+  "created": 1794129871,
+  "model": "qwen3.6-35b-a3b-vl-mtp-mxfp8",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "\n\n",
+     "reasoning": "The user wants me to find every TODO comment under the `src` directory. I can use the `grep` tool to search for TODO comments in files under `src`. A common pattern for TODO comments is `TODO`, possibly with a colon or other characters.\n\nLet me use `grep` with a pattern that matches TODO comments.\n",
+     "reasoning_content": "The user wants me to find every TODO comment under the `src` directory. I can use the `grep` tool to search for TODO comments in files under `src`. A common pattern for TODO comments is `TODO`, possibly with a colon or other characters.\n\nLet me use `grep` with a pattern that matches TODO comments.\n",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "The user wants me to find every TODO comment under the `src` directory. I can use the `grep` tool to search for TODO comments in files under `src`. A common pattern for TODO comments is `TODO`, possibly with a colon or other characters.\n\nLet me use `grep` with a pattern that matches TODO comments.\n",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"pattern\":\"TODO\",\"path\":\"src\"}",
+        "name": "grep"
+       },
+       "id": "call_5BDE100ABF2D4CB49E92136D",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 637,
+   "completion_tokens": 108,
+   "total_tokens": 745,
+   "completion_tokens_details": {
+    "reasoning_tokens": 69
+   }
+  },
+  "se_signature": "MEUCIQDE79lQT+Yuq81yPVjiZbExZW1+dVvJL4T3xiFJKW8kUwIgE3FOp+ByAEV/b0VwDBuglK/0ggNjjFbmWh/mT2RXrkE=",
+  "response_hash": "f915455b995360874d826f45732179f8ec79992d6dd812b50985df01f59a7df4"
+ },
+ "row": {
+  "trial": 5,
+  "agent": "smith",
+  "expect": "grep",
+  "verdict": "pass",
+  "called": [
+   "grep"
+  ],
+  "expected_tool_called": true,
+  "seconds": 2.4,
+  "finish": "tool_calls",
+  "prompt_tokens": 637,
+  "prompt_tps": 0,
+  "gen_tokens": 108,
+  "gen_tps": 45.57,
+  "reasoning_chars": 299,
+  "error": null
+ }
+}

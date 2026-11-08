@@ -1,0 +1,133 @@
+{
+ "model": "gpt-oss-20b",
+ "row": {
+  "task": "fix_sqli",
+  "pass": true,
+  "judge": "",
+  "turns": 6,
+  "verdicts": {
+   "call": 5,
+   "final": 1,
+   "text_leak": 0,
+   "unoffered": 0,
+   "bad_args": 0
+  },
+  "seconds": 13.6,
+  "usage": {
+   "prompt": 3678,
+   "completion": 523
+  },
+  "error": null,
+  "hit_turn_limit": false,
+  "trial": 1
+ },
+ "transcript": [
+  {
+   "role": "system",
+   "content": "You are warden, a security agent running locally in hearth. You audit code for vulnerabilities and secrets and report evidence with file and line. The working directory is the project root. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool. When the task is done, reply with a one-line summary."
+  },
+  {
+   "role": "user",
+   "content": "auth.py has a SQL injection vulnerability in login(). Fix it with a parameterized query, keeping valid logins working."
+  },
+  {
+   "role": "assistant",
+   "content": "",
+   "tool_calls": [
+    {
+     "function": {
+      "arguments": "{\"path\":\"\", \"pattern\":\"auth.py\"}",
+      "name": "glob"
+     },
+     "id": "call_6F663294262D43D98E4F6880",
+     "type": "function"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_6F663294262D43D98E4F6880",
+   "content": "auth.py"
+  },
+  {
+   "role": "assistant",
+   "content": "",
+   "tool_calls": [
+    {
+     "function": {
+      "arguments": "{\"path\":\"auth.py\",\"offset\":0,\"limit\":200}",
+      "name": "read"
+     },
+     "id": "call_07010276A22243AD9190C85C",
+     "type": "function"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_07010276A22243AD9190C85C",
+   "content": "1\timport sqlite3\n2\t\n3\t\n4\tdef login(conn, name, pw):\n5\t    cur = conn.execute(\n6\t        f\"SELECT name FROM users WHERE name = '{name}' AND pw = '{pw}'\"\n7\t    )\n8\t    row = cur.fetchone()\n9\t    return row[0] if row else None"
+  },
+  {
+   "role": "assistant",
+   "content": "",
+   "tool_calls": [
+    {
+     "function": {
+      "arguments": "{\"path\":\"auth.py\",\"old_string\":\"f\\\"SELECT name FROM users WHERE name = '{name}' AND pw = '{pw}'\\\"\",\"new_string\":\"\\\"SELECT name FROM users WHERE name = ? AND pw = ?\\\"\"}",
+      "name": "edit"
+     },
+     "id": "call_75930E3795084B1B981D9B39",
+     "type": "function"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_75930E3795084B1B981D9B39",
+   "content": "edited auth.py"
+  },
+  {
+   "role": "assistant",
+   "content": "",
+   "tool_calls": [
+    {
+     "function": {
+      "arguments": "{\"new_string\":\"conn.execute(\\\"SELECT name FROM users WHERE name = ? AND pw = ?\\\", (name, pw))\",\"old_string\":\"conn.execute(\\n        \\\"SELECT name FROM users WHERE name = ? AND pw = ?\\\"\\n    )\",\"path\":\"auth.py\"}",
+      "name": "edit"
+     },
+     "id": "call_330D233722234E729183EB19",
+     "type": "function"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_330D233722234E729183EB19",
+   "content": "edited auth.py"
+  },
+  {
+   "role": "assistant",
+   "content": "",
+   "tool_calls": [
+    {
+     "function": {
+      "arguments": "{\"path\":\"auth.py\",\"offset\":0,\"limit\":200}",
+      "name": "read"
+     },
+     "id": "call_853EB48634A5461C8708FA37",
+     "type": "function"
+    }
+   ]
+  },
+  {
+   "role": "tool",
+   "tool_call_id": "call_853EB48634A5461C8708FA37",
+   "content": "1\timport sqlite3\n2\t\n3\t\n4\tdef login(conn, name, pw):\n5\t    cur = conn.execute(\"SELECT name FROM users WHERE name = ? AND pw = ?\", (name, pw))\n6\t    row = cur.fetchone()\n7\t    return row[0] if row else None"
+  },
+  {
+   "role": "assistant",
+   "content": "Fixed SQL injection in auth.py by replacing string interpolation with a parameterized query."
+  }
+ ]
+}

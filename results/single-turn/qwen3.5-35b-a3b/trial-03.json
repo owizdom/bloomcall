@@ -1,0 +1,224 @@
+{
+ "request": {
+  "model": "qwen3.5-35b-a3b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are smith, a general software agent running locally in hearth. The working directory is /tmp/hearth-w0-project. To act, call a tool; the call is executed and its result is returned to you. Never write a tool call as text, JSON or a code block. Do not guess file contents or command output: call the tool."
+   },
+   {
+    "role": "user",
+    "content": "In config.toml the line `timeout = 60` should be `timeout = 30`. Change it."
+   }
+  ],
+  "tools": [
+   {
+    "type": "function",
+    "function": {
+     "name": "read",
+     "description": "Read a text file and return its numbered lines.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "offset": {
+        "type": "integer"
+       },
+       "limit": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "path"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "write",
+     "description": "Create or fully replace a text file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "content": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "content"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "edit",
+     "description": "Replace one exact, unique occurrence of old_string with new_string in a file.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "path": {
+        "type": "string"
+       },
+       "old_string": {
+        "type": "string"
+       },
+       "new_string": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "path",
+       "old_string",
+       "new_string"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "shell",
+     "description": "Run a shell command in the working directory and return its output.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "command": {
+        "type": "string"
+       },
+       "timeout_ms": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "command"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "grep",
+     "description": "Search file contents with a regular expression; returns path:line matches.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       },
+       "include": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   },
+   {
+    "type": "function",
+    "function": {
+     "name": "glob",
+     "description": "Find file paths matching a glob pattern such as src/**/*.ts.",
+     "parameters": {
+      "type": "object",
+      "properties": {
+       "pattern": {
+        "type": "string"
+       },
+       "path": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "pattern"
+      ]
+     }
+    }
+   }
+  ],
+  "tool_choice": "auto",
+  "max_tokens": 8192,
+  "stream": false
+ },
+ "response": {
+  "id": "chatcmpl-4fe01ee4-eb7f-4538-9917-6e7414ab6541",
+  "object": "chat.completion",
+  "created": 1794129958,
+  "model": "qwen3.5-35b-a3b",
+  "choices": [
+   {
+    "index": 0,
+    "message": {
+     "role": "assistant",
+     "content": "\n\n",
+     "reasoning": "The user wants me to modify the config.toml file, changing \"timeout = 60\" to \"timeout = 30\". I'll use the edit function to replace the exact string.\n",
+     "reasoning_content": "The user wants me to modify the config.toml file, changing \"timeout = 60\" to \"timeout = 30\". I'll use the edit function to replace the exact string.\n",
+     "reasoning_details": [
+      {
+       "type": "reasoning.text",
+       "text": "The user wants me to modify the config.toml file, changing \"timeout = 60\" to \"timeout = 30\". I'll use the edit function to replace the exact string.\n",
+       "id": "reasoning-text-0",
+       "format": "unknown",
+       "index": 0,
+       "signature": null
+      }
+     ],
+     "tool_calls": [
+      {
+       "function": {
+        "arguments": "{\"path\":\"config.toml\",\"old_string\":\"timeout = 60\",\"new_string\":\"timeout = 30\"}",
+        "name": "edit"
+       },
+       "id": "call_B0E340F0E34645C0B0017EFF",
+       "type": "function"
+      }
+     ]
+    },
+    "finish_reason": "tool_calls"
+   }
+  ],
+  "usage": {
+   "prompt_tokens": 655,
+   "completion_tokens": 103,
+   "total_tokens": 758,
+   "completion_tokens_details": {
+    "reasoning_tokens": 41
+   }
+  },
+  "se_signature": "MEUCIE9+kSNbI+f9vkdc5kK13Ox5JLNy4m88p5pIqoMouLZtAiEA2HpckbKhIi4WJqx+XVbuTnOkeQ73eKv2FO7hDBh//ns=",
+  "response_hash": "0345a7e4b11b9e0cb924c544bfb109256f5786ab5e814b6ff731992068484f25"
+ },
+ "row": {
+  "trial": 3,
+  "agent": "smith",
+  "expect": "edit",
+  "verdict": "pass",
+  "called": [
+   "edit"
+  ],
+  "expected_tool_called": true,
+  "seconds": 3.0,
+  "finish": "tool_calls",
+  "prompt_tokens": 655,
+  "prompt_tps": 0,
+  "gen_tokens": 103,
+  "gen_tps": 34.14,
+  "reasoning_chars": 149,
+  "error": null
+ }
+}
