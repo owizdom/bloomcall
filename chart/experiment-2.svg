@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+<rect width="1200" height="560" fill="#ffffff"/>
+<text x="64" y="92" font-size="40" font-weight="700" fill="#0b0b0b" letter-spacing="-0.5">Starting on Darkbloom cut the cost of a bug fix 35 to 40%</text>
+<text x="64" y="136" font-size="22" fill="#52514e">20 real Django bugs, judged by hidden tests. Cost per bug in cents, failed attempts included.</text>
+<text x="1136" y="196" font-size="18" fill="#52514e" text-anchor="end">solved</text>
+<text x="530" y="238" font-size="22" fill="#0b0b0b" text-anchor="end">Claude only</text>
+<path d="M550,220 H966.0 Q970.0,220 970.0,224 V238 Q970.0,242 966.0,242 H550 Z" fill="#a3a29e"/>
+<text x="984.0" y="238" font-size="22" font-weight="600" fill="#0b0b0b">8.2¢</text>
+<text x="1136" y="238" font-size="22" fill="#0b0b0b" text-anchor="end">19<tspan fill="#52514e">/20</tspan></text>
+<text x="530" y="300" font-size="22" fill="#0b0b0b" text-anchor="end">Darkbloom, perfect handoff</text>
+<path d="M550,282 H834.1954944385457 Q838.1954944385457,282 838.1954944385457,286 V300 Q838.1954944385457,304 834.1954944385457,304 H550 Z" fill="#2a78d6"/>
+<text x="852.1954944385457" y="300" font-size="22" font-weight="600" fill="#0b0b0b">5.6¢</text>
+<text x="1136" y="300" font-size="22" fill="#0b0b0b" text-anchor="end">57<tspan fill="#52514e">/60</tspan></text>
+<text x="530" y="362" font-size="22" fill="#0b0b0b" text-anchor="end">Darkbloom, hand off on failure or broken tests</text>
+<path d="M550,344 H819.7745007634896 Q823.7745007634896,344 823.7745007634896,348 V362 Q823.7745007634896,366 819.7745007634896,366 H550 Z" fill="#2a78d6"/>
+<text x="837.7745007634896" y="362" font-size="22" font-weight="600" fill="#0b0b0b">5.4¢</text>
+<text x="1136" y="362" font-size="22" fill="#0b0b0b" text-anchor="end">55<tspan fill="#52514e">/60</tspan></text>
+<text x="530" y="424" font-size="22" fill="#0b0b0b" text-anchor="end">Darkbloom, hand off when it gives up</text>
+<path d="M550,406 H797.3035707855524 Q801.3035707855524,406 801.3035707855524,410 V424 Q801.3035707855524,428 797.3035707855524,428 H550 Z" fill="#2a78d6"/>
+<text x="815.3035707855524" y="424" font-size="22" font-weight="600" fill="#0b0b0b">4.9¢</text>
+<text x="1136" y="424" font-size="22" fill="#0b0b0b" text-anchor="end">54<tspan fill="#52514e">/60</tspan></text>
+<text x="530" y="486" font-size="22" fill="#0b0b0b" text-anchor="end">Darkbloom only</text>
+<path d="M550,468 H691.0584453912775 Q695.0584453912775,468 695.0584453912775,472 V486 Q695.0584453912775,490 691.0584453912775,490 H550 Z" fill="#2a78d6"/>
+<text x="709.0584453912775" y="486" font-size="22" font-weight="600" fill="#0b0b0b">2.8¢</text>
+<text x="1136" y="486" font-size="22" fill="#0b0b0b" text-anchor="end">48<tspan fill="#52514e">/60</tspan></text>
+</svg>
