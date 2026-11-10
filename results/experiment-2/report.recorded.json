@@ -1,0 +1,191 @@
+{
+  "superseded": [
+    {
+      "id": "main__django__django-14792__D__0__nvidia-nemotron-3.5-super",
+      "instance_id": "django__django-14792",
+      "arm": "D",
+      "model": "nvidia-nemotron-3.5-super",
+      "rep": 0,
+      "phase": "main",
+      "resolved": false,
+      "is_error": true,
+      "infra": true,
+      "subtype": "success",
+      "terminal_reason": "api_error",
+      "num_turns": 11,
+      "seconds": 5107.663480758667,
+      "cost": 0.3816704900000001,
+      "cost_upper": 0.4286256300000001,
+      "cost_trusted": true,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "web_search_requests": 0,
+      "diff_touches_src": false,
+      "p2p_pass": true,
+      "f2p_passed": 0,
+      "f2p_total": 2,
+      "p2p_passed": 23,
+      "p2p_total": 23,
+      "applied": true
+    },
+    {
+      "id": "main__django__django-14792__D__2__nvidia-nemotron-3.5-super",
+      "instance_id": "django__django-14792",
+      "arm": "D",
+      "model": "nvidia-nemotron-3.5-super",
+      "rep": 2,
+      "phase": "main",
+      "resolved": false,
+      "is_error": true,
+      "infra": true,
+      "subtype": null,
+      "terminal_reason": null,
+      "num_turns": 0,
+      "seconds": 5400.0647740364075,
+      "cost": 0.3648323399999999,
+      "cost_upper": 0.40784813999999986,
+      "cost_trusted": true,
+      "server_tool_use": {},
+      "web_search_requests": 0,
+      "diff_touches_src": true,
+      "p2p_pass": false,
+      "f2p_passed": 0,
+      "f2p_total": 2,
+      "p2p_passed": 22,
+      "p2p_total": 23,
+      "applied": true
+    }
+  ],
+  "coverage": {
+    "D_issues": 20,
+    "C_issues": 20,
+    "both_issues": 20
+  },
+  "server_tool_use_nonzero": 0,
+  "infra": {
+    "C": 0,
+    "D": 0
+  },
+  "C": {
+    "n": 20,
+    "resolved": 19,
+    "silent_failures": 0,
+    "mean_cost": 0.08220152,
+    "mean_cost_upper": 0.08220152,
+    "mean_seconds": 38.067417204380035,
+    "cost_per_resolved": 0.08652791578947369,
+    "cost_ratio": 1.0,
+    "cost_ratio_upper": 1.0,
+    "rate": 0.95,
+    "resolved_ci": [
+      0.85,
+      1.0
+    ],
+    "cost_ratio_ci": [
+      1.0,
+      1.0
+    ],
+    "cost_ratio_upper_ci": [
+      1.0,
+      1.0
+    ]
+  },
+  "D": {
+    "n": 60,
+    "resolved": 48,
+    "silent_failures": 0,
+    "mean_cost": 0.03203620333333333,
+    "mean_cost_upper": 0.04967017333333334,
+    "mean_seconds": 967.3676535884539,
+    "cost_per_resolved": 0.04004525416666666,
+    "cost_ratio": 0.3897276270965954,
+    "cost_ratio_upper": 0.6042488427626805,
+    "rate": 0.8,
+    "resolved_ci": [
+      0.6333333333333333,
+      0.95
+    ],
+    "cost_ratio_ci": [
+      0.2797076314064056,
+      0.49786723541031874
+    ],
+    "cost_ratio_upper_ci": [
+      0.4462141525851115,
+      0.8036507680215202
+    ]
+  },
+  "E1": {
+    "n": 60,
+    "resolved": 54,
+    "silent_failures": 6,
+    "mean_cost": 0.05283027666666667,
+    "mean_cost_upper": 0.07046424666666669,
+    "mean_seconds": 975.4425303578377,
+    "cost_per_resolved": 0.058700307407407414,
+    "cost_ratio": 0.6426922113686787,
+    "cost_ratio_upper": 0.8572134270347639,
+    "rate": 0.9,
+    "resolved_ci": [
+      0.7833333333333333,
+      0.9833333333333333
+    ],
+    "cost_ratio_ci": [
+      0.3375137155688512,
+      0.8927380092373459
+    ],
+    "cost_ratio_upper_ci": [
+      0.5515552874723051,
+      1.0974049926195355
+    ]
+  },
+  "E2": {
+    "n": 60,
+    "resolved": 55,
+    "silent_failures": 5,
+    "mean_cost": 0.057228240000000014,
+    "mean_cost_upper": 0.07486221000000004,
+    "mean_seconds": 976.7643616755803,
+    "cost_per_resolved": 0.06243080727272728,
+    "cost_ratio": 0.6961944256018625,
+    "cost_ratio_upper": 0.9107156412679478,
+    "rate": 0.9166666666666666,
+    "resolved_ci": [
+      0.8,
+      1.0
+    ],
+    "cost_ratio_ci": [
+      0.3375137155688512,
+      0.9916084374623646
+    ],
+    "cost_ratio_upper_ci": [
+      0.5610179100585179,
+      1.1923762436166654
+    ]
+  },
+  "ESTAR": {
+    "n": 60,
+    "resolved": 57,
+    "silent_failures": 0,
+    "mean_cost": 0.06005068666666667,
+    "mean_cost_upper": 0.07768465666666667,
+    "mean_seconds": 978.5994658509891,
+    "cost_per_resolved": 0.06321124912280703,
+    "cost_ratio": 0.7305301248281866,
+    "cost_ratio_upper": 0.9450513404942715,
+    "rate": 0.95,
+    "resolved_ci": [
+      0.85,
+      1.0
+    ],
+    "cost_ratio_ci": [
+      0.3993020523719124,
+      1.0008406496771782
+    ],
+    "cost_ratio_upper_ci": [
+      0.6269441382548344,
+      1.2021077916388785
+    ]
+  }
+}

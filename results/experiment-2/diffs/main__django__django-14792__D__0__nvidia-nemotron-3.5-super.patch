@@ -1,0 +1,27 @@
+diff --git a/django/utils/timezone.py b/django/utils/timezone.py
+index bb2b6b9..62b71b9 100644
+--- a/django/utils/timezone.py
++++ b/django/utils/timezone.py
+@@ -73,6 +73,22 @@ def get_current_timezone_name():
+ 
+ def _get_timezone_name(timezone):
+     """Return the name of ``timezone``."""
++    # If the timezone has a fixed offset from UTC, return the offset as a
++    # name (e.g. "+10" or "-05:30") so that database backends can correctly
++    # handle time zones like "Etc/GMT-10" which have inverted sign semantics.
++    if hasattr(timezone, 'utcoffset'):
++        try:
++            offset = timezone.utcoffset(None)
++        except (TypeError, ValueError):
++            offset = None
++        if offset is not None:
++            total_seconds = int(offset.total_seconds())
++            sign = '+' if total_seconds >= 0 else '-'
++            hours = abs(total_seconds) // 3600
++            minutes = (abs(total_seconds) % 3600) // 60
++            if minutes:
++                return '%s%02d:%02d' % (sign, hours, minutes)
++            return '%s%02d' % (sign, hours)
+     return str(timezone)
+ 
+ # Timezone selection functions.

@@ -1,0 +1,38 @@
+diff --git a/django/db/models/expressions.py b/django/db/models/expressions.py
+index 822968e..a321d46 100644
+--- a/django/db/models/expressions.py
++++ b/django/db/models/expressions.py
+@@ -1299,6 +1299,8 @@ class When(Expression):
+         template_params = extra_context
+         sql_params = []
+         condition_sql, condition_params = compiler.compile(self.condition)
++        if not condition_sql:
++            condition_sql = "1=1"
+         template_params["condition"] = condition_sql
+         sql_params.extend(condition_params)
+         result_sql, result_params = compiler.compile(self.result)
+diff --git a/tests/expressions_case/tests.py b/tests/expressions_case/tests.py
+index 9bad0b8..658c6a4 100644
+--- a/tests/expressions_case/tests.py
++++ b/tests/expressions_case/tests.py
+@@ -1662,3 +1662,20 @@ class CaseWhenTests(SimpleTestCase):
+         msg = "An empty Q() can't be used as a When() condition."
+         with self.assertRaisesMessage(ValueError, msg):
+             When(Q(), then=Value(True))
++
++    def test_negated_empty_q_object(self):
++        # Regression test for ~Q(pk__in=[]) which matches everything and
++        # should produce valid SQL (1=1) instead of an empty condition.
++        expression = Case(
++            When(~Q(pk__in=[]), then=Value(True)),
++            default=Value(False),
++            output_field=BooleanField(),
++        )
++        from django.db.models.sql.compiler import SQLCompiler
++        from django.db.models.sql.query import Query
++
++        query = Query(CaseTestModel)
++        compiler = SQLCompiler(query, connection, "default")
++        expression = expression.resolve_expression(query=query)
++        sql, params = expression.as_sql(compiler, connection)
++        self.assertIn("1=1", sql)

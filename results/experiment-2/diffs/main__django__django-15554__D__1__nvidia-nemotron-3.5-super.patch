@@ -1,0 +1,51 @@
+diff --git a/django/db/models/sql/datastructures.py b/django/db/models/sql/datastructures.py
+index 1edf040..cec4579 100644
+--- a/django/db/models/sql/datastructures.py
++++ b/django/db/models/sql/datastructures.py
+@@ -162,7 +162,12 @@ class Join:
+         return hash(self.identity)
+ 
+     def equals(self, other):
+-        # Ignore filtered_relation in equality check.
++        # If both joins have filtered_relation, consider it in the equality
++        # check. This allows multiple FilteredRelation with the same relation
++        # but different conditions to create separate joins.
++        if self.filtered_relation is not None and other.filtered_relation is not None:
++            return self.identity == other.identity
++        # Ignore filtered_relation in equality check if at least one is None.
+         return self.identity[:-1] == other.identity[:-1]
+ 
+     def demote(self):
+diff --git a/tests/filtered_relation/tests.py b/tests/filtered_relation/tests.py
+index 790a90d..6991834 100644
+--- a/tests/filtered_relation/tests.py
++++ b/tests/filtered_relation/tests.py
+@@ -657,6 +657,28 @@ class FilteredRelationTests(TestCase):
+             FilteredRelation("book", condition=Q(book__title="b")), mock.ANY
+         )
+ 
++    def test_multiple_filtered_relation_same_relation(self):
++        # Multiple FilteredRelation with the same relation but different
++        # conditions should create separate joins.
++        qs = Author.objects.annotate(
++            book_a=FilteredRelation(
++                "book", condition=Q(book__editor=self.editor_a)
++            ),
++            book_b=FilteredRelation(
++                "book", condition=Q(book__editor=self.editor_b)
++            ),
++        ).filter(
++            Q(book_a__isnull=False) | Q(book_b__isnull=False)
++        )
++        query_str = str(qs.query)
++        # Both joins should appear in the SQL
++        self.assertIn("book_a", query_str)
++        # The second join should have a different alias (not book_a)
++        self.assertIn("LEFT OUTER JOIN", query_str)
++        # Count the number of JOINs to the book table
++        join_count = query_str.count("JOIN")
++        self.assertGreaterEqual(join_count, 2)
++
+ 
+ class FilteredRelationAggregationTests(TestCase):
+     @classmethod

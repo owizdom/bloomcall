@@ -1,0 +1,151 @@
+diff --git a/django/db/backends/mysql/operations.py b/django/db/backends/mysql/operations.py
+index 76ca815..19fb718 100644
+--- a/django/db/backends/mysql/operations.py
++++ b/django/db/backends/mysql/operations.py
+@@ -452,7 +452,13 @@ class DatabaseOperations(BaseDatabaseOperations):
+             fields = ", ".join(
+                 [
+                     field_sql % {"field": field}
+-                    for field in map(self.quote_name, update_fields)
++                    for field in map(
++                        self.quote_name,
++                        [
++                            f.column if hasattr(f, "column") else f
++                            for f in update_fields
++                        ],
++                    )
+                 ]
+             )
+             return conflict_suffix_sql % {"fields": fields}
+diff --git a/django/db/backends/postgresql/operations.py b/django/db/backends/postgresql/operations.py
+index 62273fc..3f89665 100644
+--- a/django/db/backends/postgresql/operations.py
++++ b/django/db/backends/postgresql/operations.py
+@@ -354,11 +354,25 @@ class DatabaseOperations(BaseDatabaseOperations):
+             return "ON CONFLICT DO NOTHING"
+         if on_conflict == OnConflict.UPDATE:
+             return "ON CONFLICT(%s) DO UPDATE SET %s" % (
+-                ", ".join(map(self.quote_name, unique_fields)),
++                ", ".join(
++                    map(
++                        self.quote_name,
++                        [
++                            f.column if hasattr(f, "column") else f
++                            for f in unique_fields
++                        ],
++                    )
++                ),
+                 ", ".join(
+                     [
+                         f"{field} = EXCLUDED.{field}"
+-                        for field in map(self.quote_name, update_fields)
++                        for field in map(
++                            self.quote_name,
++                            [
++                                f.column if hasattr(f, "column") else f
++                                for f in update_fields
++                            ],
++                        )
+                     ]
+                 ),
+             )
+diff --git a/django/db/backends/sqlite3/operations.py b/django/db/backends/sqlite3/operations.py
+index bb84d52..ba73d2d 100644
+--- a/django/db/backends/sqlite3/operations.py
++++ b/django/db/backends/sqlite3/operations.py
+@@ -418,11 +418,25 @@ class DatabaseOperations(BaseDatabaseOperations):
+             and self.connection.features.supports_update_conflicts_with_target
+         ):
+             return "ON CONFLICT(%s) DO UPDATE SET %s" % (
+-                ", ".join(map(self.quote_name, unique_fields)),
++                ", ".join(
++                    map(
++                        self.quote_name,
++                        [
++                            f.column if hasattr(f, "column") else f
++                            for f in unique_fields
++                        ],
++                    )
++                ),
+                 ", ".join(
+                     [
+                         f"{field} = EXCLUDED.{field}"
+-                        for field in map(self.quote_name, update_fields)
++                        for field in map(
++                            self.quote_name,
++                            [
++                                f.column if hasattr(f, "column") else f
++                                for f in update_fields
++                            ],
++                        )
+                     ]
+                 ),
+             )
+diff --git a/tests/bulk_create/models.py b/tests/bulk_create/models.py
+index 27abc41..c1719c7 100644
+--- a/tests/bulk_create/models.py
++++ b/tests/bulk_create/models.py
+@@ -75,6 +75,12 @@ class UpsertConflict(models.Model):
+     name = models.CharField(max_length=15)
+ 
+ 
++class UpsertConflictDbColumn(models.Model):
++    blacklistid = models.IntegerField(primary_key=True, db_column="BlacklistID")
++    sectorid = models.IntegerField(null=True, blank=True, db_column="SectorID")
++    name = models.CharField(max_length=15, db_column="Name")
++
++
+ class NoFields(models.Model):
+     pass
+ 
+diff --git a/tests/bulk_create/tests.py b/tests/bulk_create/tests.py
+index 6c490d1..ffe333f 100644
+--- a/tests/bulk_create/tests.py
++++ b/tests/bulk_create/tests.py
+@@ -34,6 +34,7 @@ from .models import (
+     State,
+     TwoFields,
+     UpsertConflict,
++    UpsertConflictDbColumn,
+ )
+ 
+ 
+@@ -772,3 +773,38 @@ class BulkCreateTests(TestCase):
+     @skipIfDBFeature("supports_update_conflicts_with_target")
+     def test_update_conflicts_no_unique_fields(self):
+         self._test_update_conflicts([])
++
++    @skipUnlessDBFeature(
++        "supports_update_conflicts", "supports_update_conflicts_with_target"
++    )
++    def test_update_conflicts_db_column(self):
++        UpsertConflictDbColumn.objects.bulk_create(
++            [
++                UpsertConflictDbColumn(
++                    blacklistid=1, sectorid=1, name="John"
++                ),
++                UpsertConflictDbColumn(
++                    blacklistid=2, sectorid=2, name="Mary"
++                ),
++            ]
++        )
++        self.assertEqual(UpsertConflictDbColumn.objects.count(), 2)
++
++        conflicting_objects = [
++            UpsertConflictDbColumn(blacklistid=1, sectorid=4, name="Steve"),
++            UpsertConflictDbColumn(blacklistid=2, sectorid=2, name="Olivia"),
++        ]
++        UpsertConflictDbColumn.objects.bulk_create(
++            conflicting_objects,
++            update_conflicts=True,
++            update_fields=["sectorid", "name"],
++            unique_fields=["blacklistid"],
++        )
++        self.assertEqual(UpsertConflictDbColumn.objects.count(), 2)
++        self.assertCountEqual(
++            UpsertConflictDbColumn.objects.values("blacklistid", "sectorid", "name"),
++            [
++                {"blacklistid": 1, "sectorid": 4, "name": "Steve"},
++                {"blacklistid": 2, "sectorid": 2, "name": "Olivia"},
++            ],
++        )

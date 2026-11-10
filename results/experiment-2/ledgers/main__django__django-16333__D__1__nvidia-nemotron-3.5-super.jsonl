@@ -1,0 +1,5 @@
+{"ts": 1794219106.231084, "model": "nvidia-nemotron-3.5-super", "http_status": 200, "ok": true, "prompt_tokens": 1579, "completion_tokens": 171, "cached_tokens": 0, "cost_usd": 0.00015459, "charged": "usage", "error": null}
+{"ts": 1794219124.5307221, "model": "nvidia-nemotron-3.5-super", "http_status": 200, "ok": true, "prompt_tokens": 6591, "completion_tokens": 404, "cached_tokens": 0, "cost_usd": 0.00053686, "charged": "usage", "error": null}
+{"ts": 1794219135.194133, "model": "nvidia-nemotron-3.5-super", "http_status": 200, "ok": true, "prompt_tokens": 6927, "completion_tokens": 172, "cached_tokens": 0, "cost_usd": 0.00047581999999999995, "charged": "usage", "error": null}
+{"ts": 1794219151.6287732, "model": "nvidia-nemotron-3.5-super", "http_status": 200, "ok": true, "prompt_tokens": 7457, "completion_tokens": 197, "cached_tokens": 0, "cost_usd": 0.0005163699999999999, "charged": "usage", "error": null}
+{"ts": 1794219168.529361, "model": "nvidia-nemotron-3.5-super", "http_status": 200, "ok": true, "prompt_tokens": 7706, "completion_tokens": 323, "cached_tokens": 0, "cost_usd": 0.0005754099999999999, "charged": "usage", "error": null}

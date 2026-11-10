@@ -1,0 +1,25 @@
+diff --git a/django/utils/timezone.py b/django/utils/timezone.py
+index bb2b6b9..c40cbed 100644
+--- a/django/utils/timezone.py
++++ b/django/utils/timezone.py
+@@ -73,6 +73,20 @@ def get_current_timezone_name():
+ 
+ def _get_timezone_name(timezone):
+     """Return the name of ``timezone``."""
++    # For fixed offset timezones, return the tzname (e.g., "+10") instead of
++    # the IANA name (e.g., "Etc/GMT-10") to ensure correct sign handling in
++    # database backends like PostgreSQL.
++    if hasattr(timezone, 'utcoffset'):
++        try:
++            # Check if the offset is fixed (doesn't change with date)
++            offset1 = timezone.utcoffset(datetime(2020, 1, 1))
++            offset2 = timezone.utcoffset(datetime(2020, 7, 1))
++            if offset1 == offset2:
++                tzname = timezone.tzname(None)
++                if tzname:
++                    return tzname
++        except (TypeError, ValueError):
++            pass
+     return str(timezone)
+ 
+ # Timezone selection functions.

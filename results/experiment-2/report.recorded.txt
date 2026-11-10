@@ -1,0 +1,11 @@
+C      n=20 resolved=19 rate=0.95 [0.85, 1.00] silent=0 mean_cost=$0.082 ratio=1.00 [1.00, 1.00] mean_s=38
+       cost_per_resolved=$0.087 mean_cost_upper=$0.082 cost_ratio_upper=1.000 [1.000, 1.000]
+D      n=60 resolved=48 rate=0.80 [0.63, 0.95] silent=0 mean_cost=$0.032 ratio=0.39 [0.28, 0.50] mean_s=967
+       cost_per_resolved=$0.040 mean_cost_upper=$0.050 cost_ratio_upper=0.604 [0.446, 0.804]
+E1     n=60 resolved=54 rate=0.90 [0.78, 0.98] silent=6 mean_cost=$0.053 ratio=0.64 [0.34, 0.89] mean_s=975
+       cost_per_resolved=$0.059 mean_cost_upper=$0.070 cost_ratio_upper=0.857 [0.552, 1.097]
+E2     n=60 resolved=55 rate=0.92 [0.80, 1.00] silent=5 mean_cost=$0.057 ratio=0.70 [0.34, 0.99] mean_s=977
+       cost_per_resolved=$0.062 mean_cost_upper=$0.075 cost_ratio_upper=0.911 [0.561, 1.192]
+ESTAR  n=60 resolved=57 rate=0.95 [0.85, 1.00] silent=0 mean_cost=$0.060 ratio=0.73 [0.40, 1.00] mean_s=979
+       cost_per_resolved=$0.063 mean_cost_upper=$0.078 cost_ratio_upper=0.945 [0.627, 1.202]
+coverage {'D_issues': 20, 'C_issues': 20, 'both_issues': 20} infra {'C': 0, 'D': 0} server_tool_use_nonzero 0 superseded 2

@@ -1,0 +1,43 @@
+diff --git a/django/db/migrations/executor.py b/django/db/migrations/executor.py
+index aa2fe08..792fe45 100644
+--- a/django/db/migrations/executor.py
++++ b/django/db/migrations/executor.py
+@@ -95,12 +95,15 @@ class MigrationExecutor:
+         Django first needs to create all project states before a migration is
+         (un)applied and in a second step run all the database operations.
+         """
+-        # The django_migrations table must be present to record applied
+-        # migrations.
+-        self.recorder.ensure_schema()
+-
+         if plan is None:
+             plan = self.migration_plan(targets)
++        # The django_migrations table must be present to record applied
++        # migrations, but don't create it if there are no migrations to apply.
++        if plan == []:
++            if not self.recorder.has_table():
++                return self._create_project_state(with_applied_migrations=False)
++        else:
++            self.recorder.ensure_schema()
+         # Create the forwards plan Django would follow on an empty database
+         full_plan = self.migration_plan(self.loader.graph.leaf_nodes(), clean_start=True)
+ 
+diff --git a/tests/migrations/test_executor.py b/tests/migrations/test_executor.py
+index ca2c03c..1b6443c 100644
+--- a/tests/migrations/test_executor.py
++++ b/tests/migrations/test_executor.py
+@@ -163,6 +163,14 @@ class ExecutorTests(MigrationTestBase):
+             executor.migrate([("migrations", None)])
+         self.assertFalse(Editor.objects.exists())
+ 
++    def test_migrate_skips_schema_creation(self):
++        """The django_migrations table is not created if there are no migrations to record."""
++        executor = MigrationExecutor(connection)
++        # 0 queries, since the query for has_table is being mocked.
++        with mock.patch.object(executor.recorder, 'has_table', return_value=False):
++            with self.assertNumQueries(0):
++                executor.migrate([], plan=[])
++
+     @override_settings(MIGRATION_MODULES={
+         "migrations": "migrations.test_migrations",
+         "migrations2": "migrations2.test_migrations_2",
